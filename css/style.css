@@ -1,15 +1,15 @@
 :root {
-  --farbe-primaer: #1a3a5c;
-  --farbe-sekundaer: #2c5f8a;
-  --farbe-hintergrund: #f5f7fa;
-  --farbe-karte: #ffffff;
-  --farbe-text: #1a1a1a;
-  --farbe-text-leicht: #555;
-  --farbe-erfolg: #2e7d32;
-  --farbe-hervorhebung: #e3f0fc;
-  --farbe-rand: #d0d7de;
-  --schrift: "Segoe UI", system-ui, -apple-system, sans-serif;
-  --abstand: 1.5rem;
+  --color-primary: #1a3a5c;
+  --color-secondary: #2c5f8a;
+  --color-background: #f5f7fa;
+  --color-card: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-light: #555;
+  --color-success: #2e7d32;
+  --color-highlight: #e3f0fc;
+  --color-border: #d0d7de;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --spacing: 1.5rem;
   --radius: 6px;
 }
 
@@ -18,13 +18,13 @@
 }
 
 body {
-  font-family: var(--schrift);
-  color: var(--farbe-text);
-  background: var(--farbe-hintergrund);
+  font-family: var(--font);
+  color: var(--color-text);
+  background: var(--color-background);
   line-height: 1.6;
   max-width: 1100px;
   margin: 0 auto;
-  padding: var(--abstand);
+  padding: var(--spacing);
 }
 
 /* Header */
@@ -32,147 +32,174 @@ body {
 header {
   text-align: center;
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid var(--farbe-primaer);
 }
 
 header h1 {
-  color: var(--farbe-primaer);
-  margin: 0 0 0.25rem;
+  color: var(--color-primary);
+  margin: 0 0 1rem;
   font-size: 2rem;
 }
 
-.intro {
+.intro-box {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing);
   text-align: left;
-  color: var(--farbe-text);
-  margin: 1rem 0 0;
-  font-size: 1rem;
-  line-height: 1.7;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
-.intro a {
-  color: var(--farbe-sekundaer);
+.intro-box p {
+  color: var(--color-text-light);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.intro-box p:first-child {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.intro-box p + p {
+  margin-top: 0.75rem;
+}
+
+.intro-box a {
+  color: var(--color-secondary);
   text-decoration: underline;
 }
 
-.intro a:hover {
-  color: var(--farbe-primaer);
+.intro-box a:hover {
+  color: var(--color-primary);
 }
 
-/* Zusammenfassung */
+/* Summary */
 
-.zusammenfassung {
-  background: var(--farbe-karte);
-  border: 1px solid var(--farbe-rand);
+.summary {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: var(--abstand);
+  padding: var(--spacing);
   margin-top: 2rem;
 }
 
-.zusammenfassung h2 {
-  color: var(--farbe-primaer);
+.summary h2 {
+  color: var(--color-primary);
   margin-top: 0;
   font-size: 1.25rem;
 }
 
-.zusammenfassung details {
-  border-bottom: 1px solid var(--farbe-rand);
+.summary-intro {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+}
+
+.summary-intro a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.summary-intro a:hover {
+  text-decoration: underline;
+}
+
+.summary details {
+  border-bottom: 1px solid var(--color-border);
   padding: 0.6rem 0;
 }
 
-.zusammenfassung details:last-child {
+.summary details:last-child {
   border-bottom: none;
 }
 
-.zusammenfassung summary {
+.summary summary {
   cursor: pointer;
   font-weight: 600;
-  color: var(--farbe-sekundaer);
+  color: var(--color-secondary);
   padding: 0.25rem 0;
 }
 
-.zusammenfassung summary:hover {
-  color: var(--farbe-primaer);
+.summary summary:hover {
+  color: var(--color-primary);
 }
 
-.zusammenfassung details p {
+.summary details p {
   margin: 0.5rem 0 0.25rem 1rem;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   font-size: 0.95rem;
 }
 
-.zusammenfassung .quelle {
+.summary .source {
   font-size: 0.8rem;
   margin-top: 0.25rem;
 }
 
-.zusammenfassung .quelle a {
-  color: var(--farbe-sekundaer);
+.summary .source a {
+  color: var(--color-secondary);
   text-decoration: none;
 }
 
-.zusammenfassung .quelle a:hover {
+.summary .source a:hover {
   text-decoration: underline;
 }
 
-.quellen-gesamt {
+.sources-total {
   margin-top: 1rem;
   padding-top: 0.75rem;
-  border-top: 1px solid var(--farbe-rand);
   font-size: 0.85rem;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
 }
 
-.quellen-gesamt a {
-  color: var(--farbe-sekundaer);
+.sources-total a {
+  color: var(--color-secondary);
   text-decoration: none;
 }
 
-.quellen-gesamt a:hover {
+.sources-total a:hover {
   text-decoration: underline;
 }
 
-/* Rechner Layout */
+/* Calculator Layout */
 
-.rechner-container {
+.calculator-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--abstand);
+  gap: var(--spacing);
   align-items: start;
 }
 
 @media (max-width: 768px) {
-  .rechner-container {
+  .calculator-container {
     grid-template-columns: 1fr;
   }
 }
 
-.rechner-formular,
-.rechner-ergebnis {
-  background: var(--farbe-karte);
-  border: 1px solid var(--farbe-rand);
+.calculator-form,
+.calculator-result {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: var(--abstand);
+  padding: var(--spacing);
 }
 
-.rechner-ergebnis {
+.calculator-result {
   position: sticky;
-  top: var(--abstand);
+  top: var(--spacing);
 }
 
-.rechner-formular h2,
-.rechner-ergebnis h2 {
-  color: var(--farbe-primaer);
+.calculator-form h2,
+.calculator-result h2 {
+  color: var(--color-primary);
   margin-top: 0;
   font-size: 1.2rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--farbe-rand);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* Formular */
+/* Form */
 
 .form-group {
   margin-bottom: 1.25rem;
@@ -185,11 +212,11 @@ header h1 {
   font-size: 0.95rem;
 }
 
-.form-group input,
+.form-group input:not([type="radio"]):not([type="checkbox"]),
 .form-group select {
   width: 100%;
   padding: 0.55rem 0.7rem;
-  border: 1px solid var(--farbe-rand);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
@@ -200,19 +227,19 @@ header h1 {
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: var(--farbe-sekundaer);
+  border-color: var(--color-secondary);
   box-shadow: 0 0 0 2px rgba(44, 95, 138, 0.15);
 }
 
-.hilfetext {
+.help-text {
   display: block;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   font-size: 0.85rem;
   margin-top: 0.25rem;
 }
 
 fieldset.form-group {
-  border: 1px solid var(--farbe-rand);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 0.75rem 1rem;
 }
@@ -223,48 +250,56 @@ fieldset.form-group legend {
   padding: 0 0.4rem;
 }
 
-/* Radio / Checkbox Module */
+/* Radio / Checkbox Modules */
 
-.modul-option {
+.module-option {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  padding: 0.6rem 0;
 }
 
-.modul-option:last-child {
-  border-bottom: none;
+.module-option + .module-option {
+  border-top: 1px solid #eee;
 }
 
-.modul-option input[type="radio"],
-.modul-option input[type="checkbox"] {
+.module-option input[type="radio"],
+.module-option input[type="checkbox"] {
   margin-top: 0.25rem;
   flex-shrink: 0;
 }
 
-.modul-option label {
+.module-option label {
   cursor: pointer;
   font-weight: normal;
   line-height: 1.4;
 }
 
-.modul-option .modul-zeit {
+.module-option .module-time {
   display: block;
   font-weight: 600;
 }
 
-.modul-option .modul-beschreibung {
+.module-option .module-description {
   display: block;
   font-size: 0.85rem;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
 }
 
-/* Ergebnis */
+.module-separator {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  padding: 0.75rem 0 0.25rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--color-border);
+}
 
-.ergebnis-platzhalter {
+/* Result */
+
+.result-placeholder {
   text-align: center;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   padding: 2rem 1rem;
 }
 
@@ -272,72 +307,88 @@ fieldset.form-group legend {
   display: none !important;
 }
 
-.hinweis.kostenfrei {
+.notice.free-of-charge {
   background: #e8f5e9;
-  border-left: 4px solid var(--farbe-erfolg);
+  border-left: 4px solid var(--color-success);
   padding: 1rem 1.25rem;
   border-radius: var(--radius);
 }
 
-.hinweis.kostenfrei h3 {
-  color: var(--farbe-erfolg);
+.notice.free-of-charge h3 {
+  color: var(--color-success);
   margin: 0 0 0.25rem;
 }
 
-.hinweis.kostenfrei p {
+.notice.free-of-charge p {
   margin: 0;
   font-size: 0.95rem;
 }
 
-.ergebnis-karte {
-  background: var(--farbe-hervorhebung);
-  border: 2px solid var(--farbe-sekundaer);
+.result-card {
+  background: var(--color-highlight);
+  border: 2px solid var(--color-secondary);
   border-radius: var(--radius);
   padding: 1.25rem;
   text-align: center;
   margin-bottom: 1.25rem;
 }
 
-.ergebnis-label {
+.result-label {
   display: block;
   font-size: 0.9rem;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   margin-bottom: 0.25rem;
 }
 
-.ergebnis-wert {
+.result-value {
   display: block;
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--farbe-primaer);
+  color: var(--color-primary);
 }
 
-.ergebnis-details h3,
-#ferien-ergebnis h3 {
+.result-details h3,
+#holiday-result h3 {
   font-size: 1rem;
-  color: var(--farbe-primaer);
+  color: var(--color-primary);
   margin: 1rem 0 0.5rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid var(--farbe-rand);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.ergebnis-details dl,
-#ferien-ergebnis dl {
+.result-details dl,
+#holiday-result dl {
   margin: 0;
 }
 
-.ergebnis-details dt,
-#ferien-ergebnis dt {
+.result-details dt,
+#holiday-result dt {
   font-size: 0.85rem;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   margin-top: 0.5rem;
 }
 
-.ergebnis-details dd,
-#ferien-ergebnis dd {
+.result-details dd,
+#holiday-result dd {
   margin: 0;
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.result-details dd a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.result-details dd a:hover {
+  text-decoration: underline;
+}
+
+.holiday-info {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin: 0.75rem 0 0;
+  font-style: italic;
 }
 
 /* Footer */
@@ -345,9 +396,9 @@ fieldset.form-group legend {
 footer {
   margin-top: 2.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--farbe-rand);
+  border-top: 1px solid var(--color-border);
   text-align: center;
-  color: var(--farbe-text-leicht);
+  color: var(--color-text-light);
   font-size: 0.85rem;
 }
 
@@ -362,11 +413,11 @@ footer p {
     max-width: none;
     padding: 0;
   }
-  .zusammenfassung,
-  .rechner-formular {
+  .summary,
+  .calculator-form {
     break-inside: avoid;
   }
-  .rechner-ergebnis {
+  .calculator-result {
     position: static;
   }
 }

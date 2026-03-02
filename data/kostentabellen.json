@@ -11,15 +11,15 @@
     "beschreibung": "Kostenbeitrag (Betreuungsanteil) pro Monat in Euro - Jahrgangsstufen 4 bis 6, Mittelstufe an Schulen mit dem sonderpädagogischen Förderschwerpunkt Geistige Entwicklung",
     "spalten": [
       { "id": 1, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Frühmodul", "schulformen": ["offen", "gebunden"], "istFerienmodul": false },
-      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätmodul (nur gebundene Ganztagsschule)", "schulformen": ["gebunden"], "istFerienmodul": false },
+      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätmodul", "schulformen": ["gebunden"], "istFerienmodul": false },
       { "id": 3, "zeitraum": "13:30-16:00", "stunden": 2.5, "beschreibung": "Nachmittagsmodul", "schulformen": ["offen"], "istFerienmodul": false },
-      { "id": 4, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätmodul (nur gebundene Ganztagsschule)", "schulformen": ["gebunden"], "istFerienmodul": false },
+      { "id": 4, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätmodul", "schulformen": ["gebunden"], "istFerienmodul": false },
       { "id": 5, "zeitraum": "06:00-07:30 + 13:30-16:00", "stunden": 4.0, "beschreibung": "Früh- und Nachmittagsmodul", "schulformen": ["offen"], "istFerienmodul": false },
       { "id": 6, "zeitraum": "13:30-18:00", "stunden": 4.5, "beschreibung": "Nachmittag- und Spätmodul", "schulformen": ["offen"], "istFerienmodul": false },
       { "id": 7, "zeitraum": "06:00-07:30 + 13:30-18:00", "stunden": 6.0, "beschreibung": "Früh-, Nachmittag- und Spätmodul", "schulformen": ["offen"], "istFerienmodul": false },
       { "id": 8, "zeitraum": "15:00-16:00", "stunden": 1.0, "beschreibung": "Mittelstufe Nachmittagsmodul", "schulformen": ["foerderschwerpunkt"], "nurMittelstufe": true, "istFerienmodul": false },
-      { "id": 9, "zeitraum": "07:30-13:30", "stunden": 6.0, "beschreibung": "Nur Ferienbetreuung (offene Ganztagsschule)", "schulformen": ["offen"], "istFerienmodul": true },
-      { "id": 10, "zeitraum": "07:30-16:00", "stunden": 8.5, "beschreibung": "Nur Ferienbetreuung (gebundene Ganztagsschule)", "schulformen": ["gebunden"], "istFerienmodul": true }
+      { "id": 9, "zeitraum": "07:30-13:30", "stunden": 6.0, "beschreibung": "Nur Ferienbetreuung", "schulformen": ["offen"], "istFerienmodul": true },
+      { "id": 10, "zeitraum": "07:30-16:00", "stunden": 8.5, "beschreibung": "Nur Ferienbetreuung", "schulformen": ["gebunden"], "istFerienmodul": true }
     ],
     "einkommensstufen": [
       { "nr": 1,  "bis": 22499.99, "monatlich": 1875.00, "kosten": [9, 10, 11, 14, 15, 16, 20, 5, 3, 4] },

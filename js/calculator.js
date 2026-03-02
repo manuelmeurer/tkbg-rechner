@@ -1,72 +1,69 @@
 var TKBGCalculator = (function () {
   "use strict";
 
-  var daten = null;
+  var data = null;
 
-  function init(jsonDaten) {
-    daten = jsonDaten;
+  function init(jsonData) {
+    data = jsonData;
   }
 
-  function istKostenfrei(jahrgangsstufe) {
-    return jahrgangsstufe === "1" || jahrgangsstufe === "2" || jahrgangsstufe === "eingangsstufe";
+  function isFreeOfCharge(gradeLevel) {
+    return gradeLevel === "1" || gradeLevel === "2" || gradeLevel === "eingangsstufe";
   }
 
-  function bestimmeAnlage(schulform, jahrgangsstufe) {
-    if (schulform === "foerderschwerpunkt") {
-      var obereStudien = ["oberstufe", "abschlussstufe", "7", "8", "9", "10"];
-      if (obereStudien.indexOf(jahrgangsstufe) !== -1) {
+  function determineAnnex(schoolType, gradeLevel) {
+    if (schoolType === "foerderschwerpunkt") {
+      var upperGrades = ["oberstufe", "abschlussstufe", "7", "8", "9", "10"];
+      if (upperGrades.indexOf(gradeLevel) !== -1) {
         return "anlage2a";
       }
     }
     return "anlage2";
   }
 
-  function findeEinkommensstufe(anlageKey, einkommen) {
-    var stufen = daten[anlageKey].einkommensstufen;
-    if (einkommen <= stufen[0].bis) {
-      return { index: 0, stufe: stufen[0] };
+  function findIncomeBracket(annexKey, income) {
+    var brackets = data[annexKey].einkommensstufen;
+    if (income <= brackets[0].bis) {
+      return { index: 0, bracket: brackets[0] };
     }
-    for (var i = stufen.length - 1; i >= 1; i--) {
-      if (einkommen >= stufen[i].ab) {
-        return { index: i, stufe: stufen[i] };
+    for (var i = brackets.length - 1; i >= 1; i--) {
+      if (income >= brackets[i].ab) {
+        return { index: i, bracket: brackets[i] };
       }
     }
-    return { index: 0, stufe: stufen[0] };
+    return { index: 0, bracket: brackets[0] };
   }
 
-  function verfuegbareModule(schulform, jahrgangsstufe) {
-    var anlageKey = bestimmeAnlage(schulform, jahrgangsstufe);
-    var spalten = daten[anlageKey].spalten;
+  function availableModules(schoolType, gradeLevel) {
+    var annexKey = determineAnnex(schoolType, gradeLevel);
+    var columns = data[annexKey].spalten;
 
-    if (anlageKey === "anlage2a") {
-      return spalten.slice();
+    if (annexKey === "anlage2a") {
+      return columns.slice();
     }
 
-    return spalten.filter(function (spalte) {
-      if (spalte.schulformen && spalte.schulformen.indexOf(schulform) === -1) {
-        // Förderschwerpunkt Mittelstufe uses Anlage 2 columns for gebunden
-        if (schulform === "foerderschwerpunkt") {
-          // Mittelstufe-only column (Spalte 8) is available
-          if (spalte.nurMittelstufe && jahrgangsstufe === "mittelstufe") {
+    return columns.filter(function (column) {
+      if (column.schulformen && column.schulformen.indexOf(schoolType) === -1) {
+        if (schoolType === "foerderschwerpunkt") {
+          if (column.nurMittelstufe && gradeLevel === "mittelstufe") {
             return true;
           }
-          // Förderschwerpunkt lower grades use gebundene Ganztagsschule columns
-          if (spalte.schulformen.indexOf("gebunden") !== -1) {
+          if (column.schulformen.indexOf("gebunden") !== -1) {
             return true;
           }
           return false;
         }
         return false;
       }
-      if (spalte.nurMittelstufe && jahrgangsstufe !== "mittelstufe") {
+      if (column.nurMittelstufe && gradeLevel !== "mittelstufe") {
         return false;
       }
       return true;
     });
   }
 
-  function verfuegbareJahrgangsstufen(schulform) {
-    switch (schulform) {
+  function availableGradeLevels(schoolType) {
+    switch (schoolType) {
       case "offen":
       case "gebunden":
         return [
@@ -95,42 +92,46 @@ var TKBGCalculator = (function () {
     }
   }
 
-  function berechneKosten(einkommen, anlageKey, spalteId) {
-    var ergebnis = findeEinkommensstufe(anlageKey, einkommen);
-    var spaltenIndex = spalteId - 1;
-    var spalte = daten[anlageKey].spalten[spaltenIndex];
-    var kostenbeitrag = ergebnis.stufe.kosten[spaltenIndex];
+  function calculateCost(income, annexKey, columnId) {
+    var result = findIncomeBracket(annexKey, income);
+    var columnIndex = columnId - 1;
+    var column = data[annexKey].spalten[columnIndex];
+    var costContribution = result.bracket.kosten[columnIndex];
 
     var label;
-    if (ergebnis.stufe.bis !== undefined) {
-      label = "bis " + formatEuro(ergebnis.stufe.bis) + " (Stufe " + ergebnis.stufe.nr + ")";
+    if (result.bracket.bis !== undefined) {
+      label = "bis " + formatEuro(result.bracket.bis) + " (Stufe " + result.bracket.nr + ")";
     } else {
-      label = "ab " + formatEuro(ergebnis.stufe.ab) + " (Stufe " + ergebnis.stufe.nr + ")";
+      label = "ab " + formatEuro(result.bracket.ab) + " (Stufe " + result.bracket.nr + ")";
     }
 
     return {
-      kostenbeitrag: kostenbeitrag,
-      einkommensstufe: label,
-      anlage: anlageKey === "anlage2" ? "Anlage 2" : "Anlage 2a",
-      spalteId: spalteId,
-      spalteBeschreibung: spalte.beschreibung,
-      zeitraum: spalte.zeitraum,
-      stunden: spalte.stunden,
+      costContribution: costContribution,
+      incomeBracket: label,
+      annexLabel: annexKey === "anlage2" ? "Anlage 2" : "Anlage 2a",
+      annexUrl: annexKey === "anlage2"
+        ? "https://gesetze.berlin.de/bsbe/document/jlr-TagEinrKostBetGBE2010V10Anlage2"
+        : "https://gesetze.berlin.de/bsbe/document/jlr-TagEinrKostBetGBE2010V9Anlage2a",
+      columnId: columnId,
+      columnDescription: column.beschreibung,
+      timeRange: column.zeitraum,
+      hours: column.stunden,
+      isHolidayOnly: !!column.istFerienmodul,
     };
   }
 
-  function formatEuro(betrag) {
-    return betrag.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " EUR";
+  function formatEuro(amount) {
+    return amount.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " EUR";
   }
 
   return {
     init: init,
-    istKostenfrei: istKostenfrei,
-    bestimmeAnlage: bestimmeAnlage,
-    findeEinkommensstufe: findeEinkommensstufe,
-    verfuegbareModule: verfuegbareModule,
-    verfuegbareJahrgangsstufen: verfuegbareJahrgangsstufen,
-    berechneKosten: berechneKosten,
+    isFreeOfCharge: isFreeOfCharge,
+    determineAnnex: determineAnnex,
+    findIncomeBracket: findIncomeBracket,
+    availableModules: availableModules,
+    availableGradeLevels: availableGradeLevels,
+    calculateCost: calculateCost,
     formatEuro: formatEuro,
   };
 })();

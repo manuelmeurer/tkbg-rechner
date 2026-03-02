@@ -3,260 +3,214 @@
 
   var el = {};
 
-  async function ladeDaten() {
+  async function loadData() {
     try {
       var response = await fetch("data/kostentabellen.json");
       if (!response.ok) throw new Error("HTTP " + response.status);
-      var daten = await response.json();
-      TKBGCalculator.init(daten);
-      initialisiereApp(daten);
-    } catch (fehler) {
-      console.error("Fehler beim Laden der Kostentabellen:", fehler);
-      document.getElementById("ergebnis-leer").innerHTML =
+      var data = await response.json();
+      TKBGCalculator.init(data);
+      initApp(data);
+    } catch (error) {
+      console.error("Fehler beim Laden der Kostentabellen:", error);
+      document.getElementById("result-empty").innerHTML =
         '<p style="color:#c62828">Fehler beim Laden der Kostentabellen. Bitte Seite neu laden.</p>';
     }
   }
 
-  function initialisiereApp(daten) {
-    el.einkommen = document.getElementById("einkommen");
-    el.schulform = document.getElementById("schulform");
-    el.jahrgangsstufe = document.getElementById("jahrgangsstufe");
-    el.modulContainer = document.getElementById("modul-container");
-    el.ferienContainer = document.getElementById("ferien-container");
-    el.ergebnisLeer = document.getElementById("ergebnis-leer");
-    el.kostenfreiHinweis = document.getElementById("kostenfrei-hinweis");
-    el.kostenErgebnis = document.getElementById("kosten-ergebnis");
-    el.monatlichBeitrag = document.getElementById("monatlicher-beitrag");
-    el.einkommensstufeAnzeige = document.getElementById("einkommensstufe-anzeige");
-    el.tabelleAnzeige = document.getElementById("tabelle-anzeige");
-    el.spalteAnzeige = document.getElementById("spalte-anzeige");
-    el.modulAnzeige = document.getElementById("modul-anzeige");
-    el.umfangAnzeige = document.getElementById("umfang-anzeige");
-    el.ferienErgebnis = document.getElementById("ferien-ergebnis");
-    el.ferienModulAnzeige = document.getElementById("ferien-modul-anzeige");
-    el.ferienKostenAnzeige = document.getElementById("ferien-kosten-anzeige");
+  function initApp(data) {
+    el.income = document.getElementById("income");
+    el.schoolType = document.getElementById("school-type");
+    el.gradeLevel = document.getElementById("grade-level");
+    el.moduleContainer = document.getElementById("module-container");
+    el.resultEmpty = document.getElementById("result-empty");
+    el.freeNotice = document.getElementById("free-notice");
+    el.costResult = document.getElementById("cost-result");
+    el.monthlyFee = document.getElementById("monthly-fee");
+    el.incomeBracketDisplay = document.getElementById("income-bracket-display");
+    el.tableDisplay = document.getElementById("table-display");
+    el.columnDisplay = document.getElementById("column-display");
+    el.moduleDisplay = document.getElementById("module-display");
+    el.scopeDisplay = document.getElementById("scope-display");
+    el.holidayInfo = document.getElementById("holiday-info");
 
-    befuelleEinkommenSelect(daten);
+    populateIncomeSelect(data);
 
-    el.schulform.addEventListener("change", onSchulformChange);
-    el.jahrgangsstufe.addEventListener("change", onJahrgangsstufeChange);
-    el.einkommen.addEventListener("change", aktualisiereErgebnis);
+    el.schoolType.addEventListener("change", onSchoolTypeChange);
+    el.gradeLevel.addEventListener("change", onGradeLevelChange);
+    el.income.addEventListener("change", updateResult);
   }
 
-  function befuelleEinkommenSelect(daten) {
-    var stufen = daten.anlage2.einkommensstufen;
+  function populateIncomeSelect(data) {
+    var brackets = data.anlage2.einkommensstufen;
     var html = '<option value="">-- Bitte wählen --</option>';
 
-    stufen.forEach(function (stufe) {
+    brackets.forEach(function (bracket) {
       var label;
-      if (stufe.bis !== undefined) {
-        label = "bis " + formatZahl(stufe.bis) + " € (monatl. " + formatZahl(stufe.monatlich) + " €)";
+      if (bracket.bis !== undefined) {
+        label = "bis " + formatNumber(bracket.bis) + " \u20AC (monatl. " + formatNumber(bracket.monatlich) + " \u20AC)";
       } else {
-        label = "ab " + formatZahl(stufe.ab) + " € (monatl. " + formatZahl(stufe.monatlich) + " €)";
+        label = "ab " + formatNumber(bracket.ab) + " \u20AC (monatl. " + formatNumber(bracket.monatlich) + " \u20AC)";
       }
-      var wert = stufe.bis !== undefined ? stufe.bis : stufe.ab;
-      html += '<option value="' + wert + '">' + label + "</option>";
+      var value = bracket.bis !== undefined ? bracket.bis : bracket.ab;
+      html += '<option value="' + value + '">' + label + "</option>";
     });
 
-    el.einkommen.innerHTML = html;
+    el.income.innerHTML = html;
   }
 
-  function formatZahl(zahl) {
-    return zahl.toLocaleString("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  function formatNumber(num) {
+    return num.toLocaleString("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   }
 
-  function onSchulformChange() {
-    var schulform = el.schulform.value;
+  function onSchoolTypeChange() {
+    var schoolType = el.schoolType.value;
 
-    el.jahrgangsstufe.innerHTML = "";
-    el.jahrgangsstufe.disabled = !schulform;
+    el.gradeLevel.innerHTML = "";
+    el.gradeLevel.disabled = !schoolType;
 
-    if (!schulform) {
-      el.jahrgangsstufe.innerHTML = '<option value="">-- Bitte zuerst Schulform wählen --</option>';
-      leereModule();
-      zeigeLeerergebnis();
+    if (!schoolType) {
+      el.gradeLevel.innerHTML = '<option value="">-- Bitte zuerst Schulform wählen --</option>';
+      clearModules();
+      showEmptyResult();
       return;
     }
 
-    var stufen = TKBGCalculator.verfuegbareJahrgangsstufen(schulform);
-    var optionen = '<option value="">-- Bitte wählen --</option>';
-    stufen.forEach(function (s) {
-      optionen += '<option value="' + s.value + '">' + s.label + "</option>";
+    var grades = TKBGCalculator.availableGradeLevels(schoolType);
+    var options = '<option value="">-- Bitte wählen --</option>';
+    grades.forEach(function (g) {
+      options += '<option value="' + g.value + '">' + g.label + "</option>";
     });
-    el.jahrgangsstufe.innerHTML = optionen;
+    el.gradeLevel.innerHTML = options;
 
-    leereModule();
-    zeigeLeerergebnis();
+    clearModules();
+    showEmptyResult();
   }
 
-  function onJahrgangsstufeChange() {
-    var schulform = el.schulform.value;
-    var jgs = el.jahrgangsstufe.value;
+  function onGradeLevelChange() {
+    var schoolType = el.schoolType.value;
+    var grade = el.gradeLevel.value;
 
-    if (!schulform || !jgs) {
-      leereModule();
-      zeigeLeerergebnis();
+    if (!schoolType || !grade) {
+      clearModules();
+      showEmptyResult();
       return;
     }
 
-    if (TKBGCalculator.istKostenfrei(jgs)) {
-      leereModule();
-      zeigeKostenfrei();
+    if (TKBGCalculator.isFreeOfCharge(grade)) {
+      clearModules();
+      showFreeOfCharge();
       return;
     }
 
-    var module = TKBGCalculator.verfuegbareModule(schulform, jgs);
-    rendereModule(module);
-    aktualisiereErgebnis();
+    var modules = TKBGCalculator.availableModules(schoolType, grade);
+    renderModules(modules);
+    updateResult();
   }
 
-  function leereModule() {
-    el.modulContainer.innerHTML = '<p class="hilfetext">Bitte zuerst Schulform und Jahrgangsstufe wählen.</p>';
-    el.ferienContainer.innerHTML = '<p class="hilfetext">Bitte zuerst Schulform und Jahrgangsstufe wählen.</p>';
+  function clearModules() {
+    el.moduleContainer.innerHTML = '<p class="help-text">Bitte zuerst Schulform und Jahrgangsstufe wählen.</p>';
   }
 
-  function rendereModule(module) {
-    var regulaer = module.filter(function (m) { return !m.istFerienmodul; });
-    var ferien = module.filter(function (m) { return m.istFerienmodul; });
+  function renderModules(modules) {
+    var regular = modules.filter(function (m) { return !m.istFerienmodul; });
+    var holiday = modules.filter(function (m) { return m.istFerienmodul; });
 
-    // Reguläre Module als Radio-Buttons
+    // All modules as radio buttons in a single group
     var html = "";
-    regulaer.forEach(function (m) {
+    regular.forEach(function (m) {
       html +=
-        '<div class="modul-option">' +
-        '<input type="radio" name="modul" id="modul-' + m.id + '" value="' + m.id + '">' +
-        '<label for="modul-' + m.id + '">' +
-        '<span class="modul-zeit">' + m.zeitraum + " (" + m.stunden + " Std./Tag)</span>" +
-        '<span class="modul-beschreibung">' + m.beschreibung + "</span>" +
+        '<div class="module-option">' +
+        '<input type="radio" name="module" id="module-' + m.id + '" value="' + m.id + '">' +
+        '<label for="module-' + m.id + '">' +
+        '<span class="module-time">' + m.zeitraum + " (" + m.stunden + "h/Tag)</span>" +
+        '<span class="module-description">' + m.beschreibung + "</span>" +
         "</label>" +
         "</div>";
     });
-    el.modulContainer.innerHTML = html || '<p class="hilfetext">Keine Module verfügbar.</p>';
 
-    // Ferienmodule als Checkboxen
-    var ferienHtml = "";
-    if (ferien.length > 0) {
-      ferien.forEach(function (m) {
-        ferienHtml +=
-          '<div class="modul-option">' +
-          '<input type="checkbox" name="ferien" id="ferien-' + m.id + '" value="' + m.id + '">' +
-          '<label for="ferien-' + m.id + '">' +
-          '<span class="modul-zeit">' + m.zeitraum + " (" + m.stunden + " Std./Tag)</span>" +
-          '<span class="modul-beschreibung">' + m.beschreibung + "</span>" +
+    if (holiday.length > 0) {
+      html += '<div class="module-separator">Oder: nur Ferienbetreuung</div>';
+      holiday.forEach(function (m) {
+        html +=
+          '<div class="module-option">' +
+          '<input type="radio" name="module" id="module-' + m.id + '" value="' + m.id + '">' +
+          '<label for="module-' + m.id + '">' +
+          '<span class="module-time">' + m.zeitraum + " (" + m.stunden + "h/Tag)</span>" +
+          '<span class="module-description">' + m.beschreibung + "</span>" +
           "</label>" +
           "</div>";
       });
-      el.ferienContainer.innerHTML = ferienHtml;
-    } else {
-      el.ferienContainer.innerHTML = '<p class="hilfetext">Keine Ferienmodule verfügbar.</p>';
     }
 
-    // Event-Listener für Module
-    el.modulContainer.querySelectorAll('input[type="radio"]').forEach(function (input) {
-      input.addEventListener("change", aktualisiereErgebnis);
-    });
-    el.ferienContainer.querySelectorAll('input[type="checkbox"]').forEach(function (input) {
-      input.addEventListener("change", aktualisiereErgebnis);
+    el.moduleContainer.innerHTML = html || '<p class="help-text">Keine Module verfügbar.</p>';
+
+    // Event listeners
+    el.moduleContainer.querySelectorAll('input[type="radio"]').forEach(function (input) {
+      input.addEventListener("change", updateResult);
     });
   }
 
-  function holeGewaehlteModule() {
-    var gewaehlt = { regulaer: null, ferien: null };
-
-    var regulaerInput = el.modulContainer.querySelector('input[name="modul"]:checked');
-    if (regulaerInput) {
-      gewaehlt.regulaer = parseInt(regulaerInput.value, 10);
-    }
-
-    var ferienInput = el.ferienContainer.querySelector('input[name="ferien"]:checked');
-    if (ferienInput) {
-      gewaehlt.ferien = parseInt(ferienInput.value, 10);
-    }
-
-    return gewaehlt;
+  function getSelectedModule() {
+    var input = el.moduleContainer.querySelector('input[name="module"]:checked');
+    return input ? parseInt(input.value, 10) : null;
   }
 
-  function aktualisiereErgebnis() {
-    var einkommen = parseFloat(el.einkommen.value);
-    var schulform = el.schulform.value;
-    var jgs = el.jahrgangsstufe.value;
+  function updateResult() {
+    var income = parseFloat(el.income.value);
+    var schoolType = el.schoolType.value;
+    var grade = el.gradeLevel.value;
 
-    if (!einkommen && einkommen !== 0 || !schulform || !jgs) {
-      zeigeLeerergebnis();
+    if (!income && income !== 0 || !schoolType || !grade) {
+      showEmptyResult();
       return;
     }
 
-    if (TKBGCalculator.istKostenfrei(jgs)) {
-      zeigeKostenfrei();
+    if (TKBGCalculator.isFreeOfCharge(grade)) {
+      showFreeOfCharge();
       return;
     }
 
-    var module = holeGewaehlteModule();
-    if (!module.regulaer && !module.ferien) {
-      zeigeLeerergebnis();
+    var moduleId = getSelectedModule();
+    if (!moduleId) {
+      showEmptyResult();
       return;
     }
 
-    var anlageKey = TKBGCalculator.bestimmeAnlage(schulform, jgs);
-    var gesamtKosten = 0;
-    var regulaerErgebnis = null;
-    var ferienErgebnis = null;
+    var annexKey = TKBGCalculator.determineAnnex(schoolType, grade);
+    var result = TKBGCalculator.calculateCost(income, annexKey, moduleId);
 
-    if (module.regulaer) {
-      regulaerErgebnis = TKBGCalculator.berechneKosten(einkommen, anlageKey, module.regulaer);
-      gesamtKosten += regulaerErgebnis.kostenbeitrag;
-    }
+    // Show main result
+    el.resultEmpty.classList.add("hidden");
+    el.freeNotice.classList.add("hidden");
+    el.costResult.classList.remove("hidden");
 
-    if (module.ferien) {
-      ferienErgebnis = TKBGCalculator.berechneKosten(einkommen, anlageKey, module.ferien);
-      gesamtKosten += ferienErgebnis.kostenbeitrag;
-    }
+    el.monthlyFee.textContent = result.costContribution + " EUR";
 
-    // Hauptergebnis anzeigen
-    el.ergebnisLeer.classList.add("hidden");
-    el.kostenfreiHinweis.classList.add("hidden");
-    el.kostenErgebnis.classList.remove("hidden");
+    el.incomeBracketDisplay.textContent = result.incomeBracket;
+    el.tableDisplay.innerHTML = '<a href="' + result.annexUrl + '" target="_blank" rel="nofollow noopener">' + result.annexLabel + ' <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 1.5L5.5 6.5"/><path d="M7 1.5h3.5V5"/><path d="M10 7.5v3a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-8a.5.5 0 01.5-.5h3"/></svg></a>';
+    el.columnDisplay.textContent = "Spalte " + result.columnId;
+    el.moduleDisplay.textContent = result.timeRange;
+    el.scopeDisplay.textContent = result.hours + "h/Tag (" + result.columnDescription + ")";
 
-    el.monatlichBeitrag.textContent = gesamtKosten + " EUR";
-
-    // Details des regulären Moduls
-    var details = regulaerErgebnis || ferienErgebnis;
-    el.einkommensstufeAnzeige.textContent = details.einkommensstufe;
-    el.tabelleAnzeige.textContent = details.anlage;
-
-    if (regulaerErgebnis) {
-      el.spalteAnzeige.textContent = "Spalte " + regulaerErgebnis.spalteId;
-      el.modulAnzeige.textContent = regulaerErgebnis.zeitraum;
-      el.umfangAnzeige.textContent = regulaerErgebnis.stunden + " Std./Tag (" + regulaerErgebnis.spalteBeschreibung + ")";
+    // Show holiday info if this is a regular module (includes Ferienbetreuung)
+    if (result.isHolidayOnly) {
+      el.holidayInfo.classList.add("hidden");
     } else {
-      el.spalteAnzeige.textContent = "--";
-      el.modulAnzeige.textContent = "Nur Ferienbetreuung";
-      el.umfangAnzeige.textContent = "--";
-    }
-
-    // Ferien-Details
-    if (ferienErgebnis) {
-      el.ferienErgebnis.classList.remove("hidden");
-      el.ferienModulAnzeige.textContent = ferienErgebnis.zeitraum + " (" + ferienErgebnis.stunden + " Std./Tag)";
-      el.ferienKostenAnzeige.textContent = ferienErgebnis.kostenbeitrag + " EUR (Spalte " + ferienErgebnis.spalteId + ")";
-    } else {
-      el.ferienErgebnis.classList.add("hidden");
+      el.holidayInfo.classList.remove("hidden");
     }
   }
 
-  function zeigeLeerergebnis() {
-    el.ergebnisLeer.classList.remove("hidden");
-    el.kostenfreiHinweis.classList.add("hidden");
-    el.kostenErgebnis.classList.add("hidden");
-    el.ferienErgebnis.classList.add("hidden");
+  function showEmptyResult() {
+    el.resultEmpty.classList.remove("hidden");
+    el.freeNotice.classList.add("hidden");
+    el.costResult.classList.add("hidden");
   }
 
-  function zeigeKostenfrei() {
-    el.ergebnisLeer.classList.add("hidden");
-    el.kostenfreiHinweis.classList.remove("hidden");
-    el.kostenErgebnis.classList.add("hidden");
-    el.ferienErgebnis.classList.add("hidden");
+  function showFreeOfCharge() {
+    el.resultEmpty.classList.add("hidden");
+    el.freeNotice.classList.remove("hidden");
+    el.costResult.classList.add("hidden");
   }
 
-  document.addEventListener("DOMContentLoaded", ladeDaten);
+  document.addEventListener("DOMContentLoaded", loadData);
 })();
