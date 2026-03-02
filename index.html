@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧮 TKBG Rechner - Kostenbeitrag Berechnung</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🧮 TKBG Rechner</h1>
+    <p class="intro">Das <em>Tagesbetreuungskostenbeteiligungsgesetz</em> &ndash; oder kurz TKBG &ndash; regelt in Berlin, was Eltern für die ergänzende Förderung und Betreuung (eFöB) an Schulen zahlen. Wie so oft im deutschen Verwaltungsrecht ist das Gesetz in bestem Beamtendeutsch verfasst: verschachtelte Sätze, Querverweise auf Anlagen und Spalten, und Begriffe wie &bdquo;außerunterrichtliche schulische Betreuungsangebote&ldquo;. Damit man nicht erst Jura studieren muss, um den monatlichen Kostenbeitrag herauszufinden, habe <a href="https://manuelmeurer.com" target="_blank" rel="noopener">ich</a> dieses Tool gebaut. Einfach Einkommen, Schulform und Betreuungsmodul auswählen, und der Rechner zeigt sofort, was zu zahlen ist.</p>
+  </header>
+
+  <main>
+
+    <section class="rechner-container">
+
+      <div class="rechner-formular">
+        <h2>Eingaben</h2>
+        <form id="tkbg-form" novalidate>
+
+          <div class="form-group">
+            <label for="einkommen">Jährliches Bruttoeinkommen</label>
+            <select id="einkommen" name="einkommen">
+              <option value="">-- Bitte wählen --</option>
+            </select>
+            <small class="hilfetext">Steuerrelevantes Brutto-Familieneinkommen</small>
+          </div>
+
+          <div class="form-group">
+            <label for="schulform">Schulform</label>
+            <select id="schulform" name="schulform">
+              <option value="">-- Bitte wählen --</option>
+              <option value="offen">Offene Ganztagsschule</option>
+              <option value="gebunden">Gebundene Ganztagsschule</option>
+              <option value="foerderschwerpunkt">Förderschwerpunkt Geistige Entwicklung</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="jahrgangsstufe">Jahrgangsstufe</label>
+            <select id="jahrgangsstufe" name="jahrgangsstufe" disabled>
+              <option value="">-- Bitte zuerst Schulform wählen --</option>
+            </select>
+          </div>
+
+          <fieldset class="form-group" id="modul-fieldset">
+            <legend>Betreuungsmodul</legend>
+            <div id="modul-container">
+              <p class="hilfetext">Bitte zuerst Schulform und Jahrgangsstufe wählen.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group" id="ferien-fieldset">
+            <legend>Ferienbetreuung</legend>
+            <div id="ferien-container">
+              <p class="hilfetext">Bitte zuerst Schulform und Jahrgangsstufe wählen.</p>
+            </div>
+          </fieldset>
+
+        </form>
+      </div>
+
+      <div class="rechner-ergebnis">
+        <h2>Ergebnis</h2>
+
+        <div id="ergebnis-leer" class="ergebnis-platzhalter">
+          <p>Bitte füllen Sie das Formular aus, um den Kostenbeitrag zu berechnen.</p>
+        </div>
+
+        <div id="kostenfrei-hinweis" class="hinweis kostenfrei hidden">
+          <h3>Kostenfrei</h3>
+          <p>Die ergänzende Förderung und Betreuung ist für Schülerinnen und Schüler der Jahrgangsstufen 1 und 2 sowie der Eingangsstufe kostenfrei.</p>
+        </div>
+
+        <div id="kosten-ergebnis" class="hidden">
+          <div class="ergebnis-karte">
+            <span class="ergebnis-label">Monatlicher Kostenbeitrag</span>
+            <span class="ergebnis-wert" id="monatlicher-beitrag">-- EUR</span>
+          </div>
+
+          <div class="ergebnis-details">
+            <h3>Details</h3>
+            <dl>
+              <dt>Einkommensstufe</dt>
+              <dd id="einkommensstufe-anzeige">--</dd>
+
+              <dt>Verwendete Tabelle</dt>
+              <dd id="tabelle-anzeige">--</dd>
+
+              <dt>Spalte</dt>
+              <dd id="spalte-anzeige">--</dd>
+
+              <dt>Gewähltes Modul</dt>
+              <dd id="modul-anzeige">--</dd>
+
+              <dt>Betreuungsumfang</dt>
+              <dd id="umfang-anzeige">--</dd>
+            </dl>
+          </div>
+
+          <div id="ferien-ergebnis" class="hidden">
+            <h3>Zusätzlich: Ferienbetreuung</h3>
+            <dl>
+              <dt>Ferienmodul</dt>
+              <dd id="ferien-modul-anzeige">--</dd>
+              <dt>Kostenbeitrag Ferien</dt>
+              <dd id="ferien-kosten-anzeige">--</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="zusammenfassung">
+      <h2>Übersicht: Tagesbetreuungskostenbeteiligungsgesetz (TKBG)</h2>
+
+      <details>
+        <summary>&sect; 1 &ndash; Kostenbeteiligung</summary>
+        <p>Für die Betreuung von Kindern in Tageseinrichtungen, Kindertagespflege und außerunterrichtlichen schulischen Betreuungsangeboten wird von den Eltern eine Kostenbeteiligung erhoben. Diese besteht aus einem einkommensabhängigen Betreuungsanteil und einem Verpflegungsanteil.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_1" target="_blank" rel="noopener">Quelle: &sect; 1 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 2 &ndash; Bemessungsgrundlage der Kostenbeteiligung</summary>
+        <p>Bemessungsgrundlage ist das Brutto-Familieneinkommen des vorletzten Kalenderjahres. Berücksichtigt werden die Einkünfte der Eltern sowie bestimmte steuerfreie Bezüge. Bei mehreren Kindern in Betreuung gibt es Ermäßigungen.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_2" target="_blank" rel="noopener">Quelle: &sect; 2 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 3 &ndash; Höhe der Kostenbeteiligung</summary>
+        <p>Die Höhe der Kostenbeteiligung richtet sich nach dem Einkommen, der Betreuungszeit und dem Alter des Kindes. Die konkreten Beträge ergeben sich aus den Anlagen zum Gesetz. Für Kinder der Jahrgangsstufen 1 und 2 ist die Betreuung kostenfrei.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_3" target="_blank" rel="noopener">Quelle: &sect; 3 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 4 &ndash; Individuelle Berechnung, Härteregelung</summary>
+        <p>Auf Antrag kann eine individuelle Berechnung der Kostenbeteiligung erfolgen, wenn das aktuelle Einkommen wesentlich niedriger ist als das der Bemessungsgrundlage. In Härtefällen kann die Kostenbeteiligung ermäßigt oder erlassen werden.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_4" target="_blank" rel="noopener">Quelle: &sect; 4 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 4a &ndash; Angebote an Schulen</summary>
+        <p>Regelt die Betreuungsmodule an offenen und gebundenen Ganztagsschulen der Primarstufe sowie an Schulen mit sonderpädagogischem Förderschwerpunkt. Die Module umfassen Frühbetreuung (6:00&ndash;7:30), Nachmittagsbetreuung (13:30&ndash;16:00) und Spätbetreuung (16:00&ndash;18:00). Die Kostenbeiträge richten sich nach Anlage 2 bzw. Anlage 2a.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_4a" target="_blank" rel="noopener">Quelle: &sect; 4a TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 5 &ndash; Festsetzung der Kostenbeteiligung</summary>
+        <p>Die Kostenbeteiligung wird durch das zuständige Jugendamt festgesetzt. Die Eltern sind zur Auskunft über ihre Einkommensverhältnisse verpflichtet.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_5" target="_blank" rel="noopener">Quelle: &sect; 5 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 6 &ndash; Beginn und Ende der Kostenbeteiligung</summary>
+        <p>Die Kostenbeteiligung beginnt mit dem Monat der Aufnahme in die Betreuung und endet mit dem Monat des Ausscheidens. Bei Änderung der Verhältnisse ist eine Neuberechnung möglich.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_6" target="_blank" rel="noopener">Quelle: &sect; 6 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 7 &ndash; Ausführungsvorschriften, Verwaltungsverfahren</summary>
+        <p>Die für Jugend und Familie zuständige Senatsverwaltung wird ermächtigt, Ausführungsvorschriften zu erlassen. Dies betrifft insbesondere die nähere Bestimmung des Einkommens und das Verwaltungsverfahren.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_7" target="_blank" rel="noopener">Quelle: &sect; 7 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 9 &ndash; Inkrafttreten</summary>
+        <p>Das Gesetz ist in der Fassung vom 23. April 2010 in Kraft getreten. Die hier verwendeten Kostentabellen gelten ab 01.08.2022.</p>
+        <p class="quelle"><a href="https://gesetze.berlin.de/perma?j=TagEinrKostBetG_BE_!_9" target="_blank" rel="noopener">Quelle: &sect; 9 TKBG</a></p>
+      </details>
+
+      <div class="quellen-gesamt">
+        <strong>Kostentabellen:</strong>
+        <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10Anlage2" target="_blank" rel="noopener">Anlage 2 TKBG</a>,
+        <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V9Anlage2a" target="_blank" rel="noopener">Anlage 2a TKBG</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Basierend auf dem Tagesbetreuungskostenbeteiligungsgesetz (TKBG), &sect; 4a, Anlage 2 und 2a.</p>
+    <p>Gültig ab 01.08.2022. Alle Angaben ohne Gewähr.</p>
+  </footer>
+
+  <script src="js/calculator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
