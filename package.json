@@ -5,6 +5,7 @@
     "wrangler": "latest"
   },
   "scripts": {
+    "dev": "wrangler dev",
     "build": "echo 'No build step'"
   }
 }
