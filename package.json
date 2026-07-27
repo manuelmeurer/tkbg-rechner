@@ -1,0 +1,10 @@
+{
+  "name": "tkbg-rechner",
+  "private": true,
+  "devDependencies": {
+    "wrangler": "latest"
+  },
+  "scripts": {
+    "build": "echo 'No build step'"
+  }
+}
