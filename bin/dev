@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# wrangler dev has no --open flag; drop it so `bin/dev --open` works like in
+# other apps.
+cd "$(dirname "$0")/.." || exit 1
+
+args=()
+for arg in "$@"; do
+  [ "$arg" = "--open" ] || args+=("$arg")
+done
+
+exec npm run dev -- "${args[@]}"
