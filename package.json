@@ -7,5 +7,10 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "echo 'No build step'"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "workerd": true,
+    "fsevents": false
   }
 }
