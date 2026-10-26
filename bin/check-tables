@@ -1,0 +1,122 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Compares public/data/kostentabellen.json with the official Anlage 2 and 2a PDFs
+# from gesetze.berlin.de (download them via "Drucken" / PDF export of each Anlage).
+#
+#   bin/check-tables ANLAGE_2.pdf ANLAGE_2A.pdf   (any order)
+#
+# Prints the "Fassung vom" / "Gültig ab" header of each PDF and every differing
+# cell. Exits with status 1 if anything differs. Needs pdftotext (poppler).
+
+require "json"
+require "open3"
+
+DATA_PATH = File.expand_path("../public/data/kostentabellen.json", __dir__)
+ANNEXES = { "anlage2" => "Anlage 2", "anlage2a" => "Anlage 2a" }.freeze
+ROW = /^\s*(\d+)\s+(bis|ab)\s+([\d.]+,\d\d)\s+([\d.]+,\d\d)\s+(.*)$/
+
+def abort_with_usage
+  abort "Usage: bin/check-tables ANLAGE_2.pdf ANLAGE_2A.pdf"
+end
+
+def pdf_text(path)
+  abort "File not found: #{path}" unless File.exist?(path)
+  text, status = Open3.capture2("pdftotext", "-layout", path, "-")
+  abort "pdftotext failed for #{path}" unless status.success?
+  text
+end
+
+def euro(value)
+  value.delete(".").tr(",", ".").to_f
+end
+
+# Parses the income bracket rows: [nr, "bis"/"ab", annual amount, monthly amount, costs]
+def rows(text)
+  text.each_line.filter_map do |line|
+    match = line.match(ROW) or next
+    {
+      nr: match[1].to_i,
+      kind: match[2],
+      amount: euro(match[3]),
+      monthly: euro(match[4]),
+      costs: match[5].split.map { Integer(it) },
+    }
+  end
+end
+
+# Identifies the annex by its heading line ("Anlage 2" or "Anlage 2a")
+def annex_key(text)
+  ANNEXES.find { |_key, label| text.match?(/^\s*#{label}\s*$/) }&.first
+end
+
+def header(text, label)
+  text[/#{label}:\s*(\S+)/, 1] || "?"
+end
+
+abort_with_usage unless ARGV.size == 2
+
+data = JSON.parse(File.read(DATA_PATH))
+problems = 0
+
+texts = ARGV.to_h { |path| [path, pdf_text(path)] }
+keys = texts.transform_values { annex_key(it) }
+unless keys.values.compact.sort == ANNEXES.keys.sort
+  found = keys.map { |path, key| "#{File.basename(path)}: #{ANNEXES.fetch(key, "unknown")}" }
+  abort "Expected one PDF of Anlage 2 and one of Anlage 2a, got #{found.join(", ")}"
+end
+
+keys.sort_by { |_path, key| key }.each do |path, key|
+  text = texts.fetch(path)
+  annex_problems = problems
+  official = rows(text)
+  ours = data.fetch(key).fetch("einkommensstufen")
+
+  puts "#{ANNEXES[key]}: #{File.basename(path)}"
+  puts "  Fassung vom #{header(text, "Fassung vom")}, gültig ab #{header(text, "Gültig ab")}"
+
+  if official.size != ours.size
+    puts "  ✗ #{official.size} income brackets in the PDF, #{ours.size} in the JSON"
+    problems += 1
+  end
+
+  official.zip(ours).each do |row, bracket|
+    next unless row && bracket
+
+    nr = row[:nr]
+    amount = bracket[row[:kind]]
+    checks = {
+      "Stufe" => [row[:nr], bracket["nr"]],
+      "Einkommen (#{row[:kind]})" => [row[:amount], amount],
+      "monatlich" => [row[:monthly], bracket["monatlich"]],
+    }
+    checks.each do |label, (pdf_value, json_value)|
+      next if pdf_value == json_value
+
+      puts "  ✗ Stufe #{nr}, #{label}: PDF #{pdf_value.inspect}, JSON #{json_value.inspect}"
+      problems += 1
+    end
+
+    if row[:costs].size != bracket["kosten"].size
+      puts "  ✗ Stufe #{nr}: #{row[:costs].size} columns in the PDF, #{bracket["kosten"].size} in the JSON"
+      problems += 1
+      next
+    end
+
+    row[:costs].zip(bracket["kosten"]).each_with_index do |(pdf_cost, json_cost), index|
+      next if pdf_cost == json_cost
+
+      puts "  ✗ Stufe #{nr}, Spalte #{index + 1}: PDF #{pdf_cost}, JSON #{json_cost}"
+      problems += 1
+    end
+  end
+
+  puts "  ✓ #{official.size} income brackets match" if problems == annex_problems
+end
+
+if problems.zero?
+  puts "\nAll amounts match."
+else
+  puts "\n#{problems} difference(s) found."
+  exit 1
+end

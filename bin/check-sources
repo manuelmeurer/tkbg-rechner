@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Watches the official sources the calculator depends on.
+#
+#   bin/check-sources            check all external links and watched documents
+#   bin/check-sources --update   store the current fingerprints after reviewing a change
+#
+# - Every external link on both pages must still resolve (404 or server errors fail).
+# - The documents in data/sources.json (official forms and explanations on berlin.de)
+#   are fingerprinted. They are updated together with the law, so a changed
+#   fingerprint is a signal to check the TKBG for amendments (see README).
+#
+# Sites that block automated access (gesetze.berlin.de) are skipped; 403 and 429
+# responses count as warnings, since berlin.de rate-limits bursts of requests.
+# The run fails if none of the watched documents could be fetched.
+
+require "digest"
+require "json"
+require "net/http"
+require "time"
+require "uri"
+
+ROOT = File.expand_path("..", __dir__)
+SOURCES_PATH = File.join(ROOT, "data", "sources.json")
+PAGES = %w[public/index.html public/en/index.html].freeze
+SKIPPED_HOSTS = %w[gesetze.berlin.de].freeze
+USER_AGENT = "Mozilla/5.0 (compatible; tkbg-rechner source check; +https://tkbg.de)"
+REQUEST_DELAY = 3 # seconds between requests to the same host
+MAX_REDIRECTS = 5
+
+def fetch(url, redirects = MAX_REDIRECTS)
+  uri = URI(url)
+  sleep REQUEST_DELAY if @last_host == uri.host
+  @last_host = uri.host
+
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 15, read_timeout: 30) do |http|
+    http.get(uri.request_uri, "User-Agent" => USER_AGENT)
+  end
+  if response.is_a?(Net::HTTPRedirection) && redirects.positive?
+    return fetch(URI.join(url, response["location"]).to_s, redirects - 1)
+  end
+
+  response
+rescue StandardError => error
+  error
+end
+
+# berlin.de sends Last-Modified with a numeric offset instead of GMT, so parse leniently
+def iso_date(header)
+  header && Time.parse(header).utc.iso8601
+rescue ArgumentError
+  header
+end
+
+def external_links
+  PAGES.flat_map { |page| File.read(File.join(ROOT, page)).scan(/href="(https?:\/\/[^"#]+)/).flatten }
+    .uniq
+    .reject { |url| url.start_with?("https://tkbg.de") }
+    .sort
+end
+
+update = ARGV.delete("--update")
+sources = JSON.parse(File.read(SOURCES_PATH))
+failures = []
+warnings = []
+
+puts "Links"
+external_links.each do |url|
+  if SKIPPED_HOSTS.include?(URI(url).host)
+    puts "  – #{url} (skipped, blocks automated access)"
+    next
+  end
+
+  response = fetch(url)
+  status = response.respond_to?(:code) ? response.code.to_i : nil
+  if status && status < 400
+    puts "  ✓ #{url}"
+  elsif [403, 429].include?(status)
+    warnings << "#{url} returned #{status}"
+    puts "  ! #{url} (#{status})"
+  else
+    failures << "#{url}: #{status || response.message}"
+    puts "  ✗ #{url} (#{status || response.message})"
+  end
+end
+
+puts "\nWatched documents"
+fetched = 0
+sources["documents"].each do |document|
+  response = fetch(document["url"])
+  unless response.is_a?(Net::HTTPSuccess)
+    status = response.respond_to?(:code) ? response.code.to_i : response.message
+    (status == 403 || status == 429 ? warnings : failures) << "#{document["url"]} returned #{status}"
+    puts "  ✗ #{document["name"]} (#{status})"
+    next
+  end
+
+  fetched += 1
+  sha256 = Digest::SHA256.hexdigest(response.body)
+  last_modified = response["last-modified"]
+  if sha256 == document["sha256"]
+    puts "  ✓ #{document["name"]}"
+  elsif update
+    document["sha256"] = sha256
+    document["lastModified"] = iso_date(last_modified)
+    puts "  ↻ #{document["name"]} (fingerprint updated)"
+  else
+    failures << "#{document["name"]} changed (Last-Modified: #{last_modified || "unknown"}) – #{document["url"]}"
+    puts "  ✗ #{document["name"]} changed (Last-Modified: #{last_modified || "unknown"})"
+  end
+end
+
+# Single blocked requests are tolerated, but a watch that could not read any document is blind
+if fetched.zero?
+  failures << "None of the watched documents could be fetched, so changes cannot be detected"
+end
+
+File.write(SOURCES_PATH, JSON.pretty_generate(sources) + "\n") if update
+
+puts
+warnings.each { |warning| puts "Warning: #{warning}" }
+if failures.empty?
+  puts "All sources OK."
+else
+  puts "#{failures.size} problem(s):"
+  failures.each { |failure| puts "  - #{failure}" }
+  puts "\nIf a document changed: check the TKBG for amendments (see README, \"Jährliche Prüfung\"),"
+  puts "then run bin/check-sources --update and commit data/sources.json."
+  exit 1
+end

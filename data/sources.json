@@ -1,0 +1,34 @@
+{
+  "documents": [
+    {
+      "name": "Antrag eFöB offene Ganztagsschule",
+      "url": "https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ogb.pdf",
+      "sha256": "ebfe4eeeb16ae40b3b87619230479a68c7c2e565839e914fffd217685036666d",
+      "lastModified": "2026-09-07T07:35:49Z"
+    },
+    {
+      "name": "Antrag eFöB gebundene Ganztagsschule",
+      "url": "https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ggb.pdf",
+      "sha256": "06b09d01b88fc5d9b59d7c83ce09ebf5441f9ea71e4289cd971d401f18160976",
+      "lastModified": "2026-09-07T07:35:36Z"
+    },
+    {
+      "name": "Antrag eFöB Förderschwerpunkt",
+      "url": "https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ge.pdf",
+      "sha256": "fa3a40b0ceb7d72bfeb44bb487733f627ad643a90b94675e5bffd92d8d5a3254",
+      "lastModified": "2026-09-07T07:35:29Z"
+    },
+    {
+      "name": "Erklärung zur Festsetzung der Kostenbeteiligung",
+      "url": "https://www.berlin.de/sen/bjf/service/formulare/erklaerung-fuer-die-festsetzung-der-hortkosten.pdf",
+      "sha256": "655999365983c28e8008a3bfa8f22bdcac39714e206a0523c1587e6d0f39774d",
+      "lastModified": "2026-09-07T07:35:44Z"
+    },
+    {
+      "name": "Erläuterungen zur Kostenfestsetzung",
+      "url": "https://www.berlin.de/sen/bjf/service/formulare/erlaeuterungen-kostenfestsetzung-efoeb.pdf",
+      "sha256": "addeb5674601eb62501c50ed83c8da0717171ccf09b8805262756cc5cf5b2647",
+      "lastModified": "2026-09-07T07:35:41Z"
+    }
+  ]
+}

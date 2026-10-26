@@ -6,7 +6,8 @@
   },
   "scripts": {
     "dev": "wrangler dev",
-    "build": "echo 'No build step'"
+    "build": "echo 'No build step'",
+    "test": "node --test \"test/**/*.test.js\""
   },
   "allowScripts": {
     "esbuild": true,

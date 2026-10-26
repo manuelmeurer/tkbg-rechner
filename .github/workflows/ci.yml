@@ -1,0 +1,33 @@
+name: CI
+
+# Tests run on every push and pull request, and weekly together with the source watch
+# (links and fingerprints of the official berlin.de documents). The weekly run also
+# catches stale data via the "last checked" test. GitHub emails failed runs;
+# see README, "Daten aktuell halten".
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+
+  sources:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+      - run: bin/check-sources
