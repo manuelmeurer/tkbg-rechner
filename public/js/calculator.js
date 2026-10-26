@@ -5,16 +5,8 @@ var TKBGCalculator = (function () {
 
   var FREE_GRADE_LEVELS = ["1", "2", "3", "eingangsstufe", "unterstufe"];
 
-  var ANNEXES = {
-    anlage2: {
-      label: "Anlage 2",
-      url: "https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000039",
-    },
-    anlage2a: {
-      label: "Anlage 2a",
-      url: "https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000040",
-    },
-  };
+  // § 3 Abs. 3 TKBG: share of the contribution per child, by number of children in the family
+  var SIBLING_SHARES = { 1: 1, 2: 0.8, 3: 0.6, 4: 0.5 };
 
   function init(jsonData) {
     data = jsonData;
@@ -43,6 +35,10 @@ var TKBGCalculator = (function () {
     return data.modulgruppen[moduleGroupKey(schoolType, gradeLevel)];
   }
 
+  function incomeBrackets() {
+    return data.anlage2.einkommensstufen;
+  }
+
   function findIncomeBracket(income) {
     var brackets = data.anlage2.einkommensstufen;
     for (var i = brackets.length - 1; i >= 1; i--) {
@@ -55,12 +51,20 @@ var TKBGCalculator = (function () {
   function gradeLevelRange(from, to, freeUpTo) {
     var levels = [];
     for (var grade = from; grade <= to; grade++) {
-      var label = "Jahrgangsstufe " + grade;
+      var label = TKBGI18n.translate("gradeLevel", { grade: grade });
       if (grade <= freeUpTo)
-        label += " (kostenfrei)";
+        label += TKBGI18n.translate("freeSuffix");
       levels.push({ value: String(grade), label: label });
     }
     return levels;
+  }
+
+  // Grade levels of schools and classes with Förderschwerpunkt Geistige Entwicklung, labelled by their i18n key
+  function namedGradeLevel(value) {
+    var label = TKBGI18n.translate(value);
+    if (isFreeOfCharge(value))
+      label += TKBGI18n.translate("freeSuffix");
+    return { value: value, label: label };
   }
 
   function availableGradeLevels(schoolType) {
@@ -69,14 +73,7 @@ var TKBGCalculator = (function () {
       case "gebunden":
         return gradeLevelRange(1, 6, 3);
       case "foerderschwerpunkt":
-        return [
-          { value: "eingangsstufe", label: "Eingangsstufe (kostenfrei)" },
-          { value: "unterstufe", label: "Unterstufe (kostenfrei)" },
-          { value: "mittelstufe", label: "Mittelstufe" },
-          { value: "oberstufe", label: "Oberstufe" },
-          { value: "abschlussstufe", label: "Abschlussstufe" },
-          { value: "sekundarstufe", label: "Jahrgangsstufen 7 bis 10 (Sekundarstufe I)" },
-        ];
+        return ["eingangsstufe", "unterstufe", "mittelstufe", "oberstufe", "abschlussstufe", "sekundarstufe"].map(namedGradeLevel);
       case "autismus":
         return gradeLevelRange(1, 10, 3);
       default:
@@ -84,41 +81,61 @@ var TKBGCalculator = (function () {
     }
   }
 
-  function calculateCost(income, modules) {
-    var bracket = findIncomeBracket(income);
-    var bracketLabel = (bracket.bis !== undefined ? "bis " + formatEuro(bracket.bis) : "ab " + formatEuro(bracket.ab)) +
-      " (Stufe " + bracket.nr + ")";
+  // options.children: number of children in the family (4 = four or more)
+  // options.fosterCare: § 3 Abs. 2 TKBG, minimum contribution regardless of income, no sibling discount
+  function calculateCost(income, modules, options) {
+    var bracket = options.fosterCare ? data.anlage2.einkommensstufen[0] : findIncomeBracket(income);
+    var bracketLabel = options.fosterCare
+      ? TKBGI18n.translate("minimumBracket")
+      : (bracket.bis !== undefined
+        ? TKBGI18n.translate("bracketUpTo", { amount: formatEuro(bracket.bis) })
+        : TKBGI18n.translate("bracketFrom", { amount: formatEuro(bracket.ab) })) +
+        " (" + TKBGI18n.translate("bracketNumber", { number: bracket.nr }) + ")";
 
     var items = modules.map(function (module) {
-      var annex = data[module.anlage];
-      var annexRow = annex.einkommensstufen[bracket.nr - 1];
-      return {
-        module: module,
-        cost: annexRow.kosten[module.spalte - 1],
-        column: annex.spalten[module.spalte - 1],
-        annexLabel: ANNEXES[module.anlage].label,
-        annexUrl: ANNEXES[module.anlage].url,
-      };
+      return { module: module, cost: data[module.anlage].einkommensstufen[bracket.nr - 1].kosten[module.spalte - 1] };
     });
 
+    var baseTotal = items.reduce(function (sum, item) { return sum + item.cost; }, 0);
+    var siblingShare = options.fosterCare ? 1 : SIBLING_SHARES[Math.min(options.children, 4)];
+    // § 3 Abs. 1 TKBG: rounded to full euros
+    var total = Math.round(baseTotal * siblingShare);
+
     return {
-      total: items.reduce(function (sum, item) { return sum + item.cost; }, 0),
+      total: total,
+      siblingShare: siblingShare,
       incomeBracket: bracketLabel,
       items: items,
     };
   }
 
+  // Contribution of each module booked on its own (same rules and rounding as calculateCost), to list all modules with prices
+  function calculateModuleCosts(income, modules, options) {
+    var results = modules.map(function (module) {
+      return calculateCost(income, [module], options);
+    });
+    return {
+      incomeBracket: results[0].incomeBracket,
+      siblingShare: results[0].siblingShare,
+      modules: results.map(function (result) {
+        return { module: result.items[0].module, total: result.total };
+      }),
+    };
+  }
+
   function formatEuro(amount) {
-    return amount.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " EUR";
+    return TKBGI18n.formatNumber(amount, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " EUR";
   }
 
   return {
     init: init,
     isFreeOfCharge: isFreeOfCharge,
     moduleGroup: moduleGroup,
+    incomeBrackets: incomeBrackets,
     findIncomeBracket: findIncomeBracket,
     availableGradeLevels: availableGradeLevels,
     calculateCost: calculateCost,
+    calculateModuleCosts: calculateModuleCosts,
     formatEuro: formatEuro,
   };
 })();

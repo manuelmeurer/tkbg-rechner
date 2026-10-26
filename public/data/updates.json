@@ -1,0 +1,46 @@
+[
+  {
+    "datum": "2026-10-26",
+    "text": "Aktualisierung auf den Stand des TKBG vom 01.08.2026 (zuletzt geändert durch Gesetz vom 09.07.2026). Die Beträge in Anlage 2 und 2a sind unverändert.",
+    "textEn": "Updated to the TKBG as of 1 August 2026 (last amended by the act of 9 July 2026). The amounts in Anlage 2 and 2a are unchanged.",
+    "punkte": [
+      "Jahrgangsstufe 3 sowie die Unterstufe (Förderschwerpunkt Geistige Entwicklung) sind kostenfrei. Das gilt bereits seit 01.08.2023 und war im Rechner noch nicht berücksichtigt.",
+      "Neue Schulform „Förderschwerpunkt Autismus“ (Auftragsschule oder Kleinklasse). Der Förderschwerpunkt Geistige Entwicklung gilt seit 01.08.2026 auch für entsprechende Klassen an allgemeinen Schulen.",
+      "Förderschwerpunkt Geistige Entwicklung nach Stufen statt nach Jahrgangsstufen, mit den Modulen nach § 4a Abs. 6 (u. a. 15:00–16:00 und 15:00–18:00).",
+      "Ferienmodule für Ober- und Abschlussstufe sowie Jahrgangsstufen 7 bis 10, auch zusätzlich zu einem Schulzeitmodul.",
+      "Gesetzesübersicht korrigiert, u. a.: Maßgeblich ist das Einkommen des letzten (nicht vorletzten) Kalenderjahres.",
+      "Einkommen wird per Schieberegler gewählt, der auf die 41 Einkommensstufen einrastet.",
+      "Geschwisterermäßigung (80 / 60 / 50 %) und Mindestbetrag für Pflegekinder werden berücksichtigt.",
+      "Darstellung auf schmalen Bildschirmen korrigiert.",
+      "Links zu den offiziellen Anträgen und Formularen.",
+      "Englische Version unter <a href=\"/en/\" hreflang=\"en\">tkbg.de/en</a>.",
+      "Dunkler Modus, passend zur Systemeinstellung.",
+      "Berechnung als Link teilen: Die Eingaben stehen in der Adresse der Seite und lassen sich mit „Link kopieren“ weitergeben.",
+      "Drucken bzw. als PDF speichern, mit Eingaben, Ergebnis und Datum der Berechnung.",
+      "Kurze Erklärungen zu Schulform und Jahrgangsstufe.",
+      "Statt ein Modul auszuwählen, zeigt der Rechner jetzt die Kostenbeiträge aller Module auf einen Blick."
+    ],
+    "punkteEn": [
+      "Grade 3 and the Unterstufe (Förderschwerpunkt Geistige Entwicklung) are free of charge. This has applied since 1 August 2023 and was not yet reflected in the calculator.",
+      "New school type “Förderschwerpunkt Autismus” (designated school or small class). Since 1 August 2026, the Förderschwerpunkt Geistige Entwicklung also covers corresponding classes at mainstream schools.",
+      "Förderschwerpunkt Geistige Entwicklung by level (Stufe) instead of grade, with the modules under § 4a Abs. 6 (including 15:00–16:00 and 15:00–18:00).",
+      "Holiday modules for the Oberstufe and Abschlussstufe and grades 7 to 10, also in addition to a school-term module.",
+      "Law overview corrected, e.g.: the relevant income is that of the last (not the second-to-last) calendar year.",
+      "Income is chosen with a slider that snaps to the 41 income brackets.",
+      "Sibling discount (80 / 60 / 50 %) and the minimum contribution for foster children are taken into account.",
+      "Layout on narrow screens fixed.",
+      "Links to the official applications and forms.",
+      "English version of the calculator (this page).",
+      "Dark mode that follows your system setting.",
+      "Share a calculation as a link: your details are kept in the page address and can be passed on with “Copy link”.",
+      "Print or save as PDF, with your details, the result and the date of calculation.",
+      "Short explanations of school type and grade.",
+      "Instead of selecting a module, the calculator now shows the contributions for all modules at a glance."
+    ]
+  },
+  {
+    "datum": "2026-03-02",
+    "text": "Erste Version des Rechners.",
+    "textEn": "First version of the calculator."
+  }
+]

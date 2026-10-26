@@ -2,6 +2,7 @@
   "meta": {
     "gueltigAb": "2026-08-01",
     "betraegeGueltigAb": "2022-08-01",
+    "geprueftAm": "2026-10-26",
     "stand": "Art. 2 des Gesetzes vom 09.07.2026 (GVBl. S. 700, 705)",
     "gesetz": "Tagesbetreuungskostenbeteiligungsgesetz (TKBG)",
     "paragraph": "4a",
@@ -124,47 +125,47 @@
       "beschreibung": "Offene Ganztagsschule, Jahrgangsstufen 4 bis 6 (§ 4a Abs. 1)",
       "ferienKombinierbar": false,
       "module": [
-        { "id": "o1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
-        { "id": "o3", "zeitraum": "13:30-16:00", "beschreibung": "Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 3, "istFerienmodul": false },
-        { "id": "o5", "zeitraum": "06:00-07:30 + 13:30-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 5, "istFerienmodul": false },
-        { "id": "o6", "zeitraum": "13:30-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
-        { "id": "o7", "zeitraum": "06:00-07:30 + 13:30-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 7, "istFerienmodul": false },
-        { "id": "o9", "zeitraum": "07:30-13:30", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 9, "istFerienmodul": true }
+        { "id": "o1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "beschreibungEn": "Early morning care", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "o3", "zeitraum": "13:30-16:00", "beschreibung": "Nachmittagsbetreuung", "beschreibungEn": "Afternoon care", "anlage": "anlage2", "spalte": 3, "istFerienmodul": false },
+        { "id": "o5", "zeitraum": "06:00-07:30 + 13:30-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "beschreibungEn": "Early morning and afternoon care", "anlage": "anlage2", "spalte": 5, "istFerienmodul": false },
+        { "id": "o6", "zeitraum": "13:30-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "beschreibungEn": "Afternoon and late care", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
+        { "id": "o7", "zeitraum": "06:00-07:30 + 13:30-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "beschreibungEn": "Early morning, afternoon and late care", "anlage": "anlage2", "spalte": 7, "istFerienmodul": false },
+        { "id": "o9", "zeitraum": "07:30-13:30", "beschreibung": "Nur Ferienbetreuung", "beschreibungEn": "Holiday care only", "anlage": "anlage2", "spalte": 9, "istFerienmodul": true }
       ]
     },
     "gebunden": {
       "beschreibung": "Gebundene Ganztagsschule, Jahrgangsstufen 4 bis 6 (§ 4a Abs. 2)",
       "ferienKombinierbar": false,
       "module": [
-        { "id": "g1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
-        { "id": "g2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
-        { "id": "g4", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
-        { "id": "g10", "zeitraum": "07:30-16:00", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
+        { "id": "g1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "beschreibungEn": "Early morning care", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "g2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "beschreibungEn": "Late care", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
+        { "id": "g4", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "beschreibungEn": "Early morning and late care", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
+        { "id": "g10", "zeitraum": "07:30-16:00", "beschreibung": "Nur Ferienbetreuung", "beschreibungEn": "Holiday care only", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
       ]
     },
     "mittelstufe": {
       "beschreibung": "Mittelstufe (Förderschwerpunkt Geistige Entwicklung) bzw. Jahrgangsstufen 4 bis 6 (Autismus) (§ 4a Abs. 4 und 6)",
       "ferienKombinierbar": false,
       "module": [
-        { "id": "m1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
-        { "id": "m8", "zeitraum": "15:00-16:00", "beschreibung": "Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 8, "istFerienmodul": false },
-        { "id": "m2", "zeitraum": "15:00-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
-        { "id": "m4", "zeitraum": "06:00-07:30 + 15:00-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
-        { "id": "m6", "zeitraum": "06:00-07:30 + 15:00-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
-        { "id": "m10", "zeitraum": "08:00-15:00", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
+        { "id": "m1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "beschreibungEn": "Early morning care (until lessons start, if applicable)", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "m8", "zeitraum": "15:00-16:00", "beschreibung": "Nachmittagsbetreuung", "beschreibungEn": "Afternoon care", "anlage": "anlage2", "spalte": 8, "istFerienmodul": false },
+        { "id": "m2", "zeitraum": "15:00-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "beschreibungEn": "Afternoon and late care", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
+        { "id": "m4", "zeitraum": "06:00-07:30 + 15:00-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "beschreibungEn": "Early morning and afternoon care", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
+        { "id": "m6", "zeitraum": "06:00-07:30 + 15:00-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "beschreibungEn": "Early morning, afternoon and late care", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
+        { "id": "m10", "zeitraum": "08:00-15:00", "beschreibung": "Nur Ferienbetreuung", "beschreibungEn": "Holiday care only", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
       ]
     },
     "oberstufe": {
       "beschreibung": "Ober- und Abschlussstufe bzw. Jahrgangsstufen 7 bis 10 (§ 4a Abs. 4 und 6)",
       "ferienKombinierbar": true,
       "module": [
-        { "id": "a1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "anlage": "anlage2a", "spalte": 1, "istFerienmodul": false },
-        { "id": "a2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "anlage": "anlage2a", "spalte": 2, "istFerienmodul": false },
-        { "id": "a3", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "anlage": "anlage2a", "spalte": 3, "istFerienmodul": false },
-        { "id": "f13", "zeitraum": "07:30-13:30", "beschreibung": "Ferienbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": true },
-        { "id": "f16", "zeitraum": "07:30-16:00", "beschreibung": "Ferienbetreuung", "anlage": "anlage2", "spalte": 5, "istFerienmodul": true },
-        { "id": "fa4", "zeitraum": "06:00-07:30", "beschreibung": "Ferienbetreuung früh", "anlage": "anlage2a", "spalte": 4, "istFerienmodul": true },
-        { "id": "fa5", "zeitraum": "16:00-18:00", "beschreibung": "Ferienbetreuung spät", "anlage": "anlage2a", "spalte": 5, "istFerienmodul": true }
+        { "id": "a1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "beschreibungEn": "Early morning care (until lessons start, if applicable)", "anlage": "anlage2a", "spalte": 1, "istFerienmodul": false },
+        { "id": "a2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "beschreibungEn": "Late care", "anlage": "anlage2a", "spalte": 2, "istFerienmodul": false },
+        { "id": "a3", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "beschreibungEn": "Early morning and late care", "anlage": "anlage2a", "spalte": 3, "istFerienmodul": false },
+        { "id": "f13", "zeitraum": "07:30-13:30", "beschreibung": "Ferienbetreuung", "beschreibungEn": "Holiday care", "anlage": "anlage2", "spalte": 4, "istFerienmodul": true },
+        { "id": "f16", "zeitraum": "07:30-16:00", "beschreibung": "Ferienbetreuung", "beschreibungEn": "Holiday care", "anlage": "anlage2", "spalte": 5, "istFerienmodul": true },
+        { "id": "fa4", "zeitraum": "06:00-07:30", "beschreibung": "Ferienbetreuung früh", "beschreibungEn": "Holiday care, early morning", "anlage": "anlage2a", "spalte": 4, "istFerienmodul": true },
+        { "id": "fa5", "zeitraum": "16:00-18:00", "beschreibung": "Ferienbetreuung spät", "beschreibungEn": "Holiday care, late", "anlage": "anlage2a", "spalte": 5, "istFerienmodul": true }
       ]
     }
   }

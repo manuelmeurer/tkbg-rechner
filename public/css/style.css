@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   --color-primary: #1a3a5c;
   --color-secondary: #2c5f8a;
   --color-background: #f5f7fa;
@@ -8,9 +9,34 @@
   --color-success: #2e7d32;
   --color-highlight: #e3f0fc;
   --color-border: #d0d7de;
+  --color-divider: #eee;
+  --color-input: #fff;
+  --color-focus-ring: rgba(44, 95, 138, 0.15);
+  --color-success-background: #e8f5e9;
+  --color-error: #c62828;
   --font: "Segoe UI", system-ui, -apple-system, sans-serif;
   --spacing: 1.5rem;
   --radius: 6px;
+}
+
+/* Screen only, so printouts always use the light palette */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #a9cdf0;
+    --color-secondary: #79b2e6;
+    --color-background: #0f1720;
+    --color-card: #17212c;
+    --color-text: #e6edf3;
+    --color-text-light: #a3b0bd;
+    --color-success: #7bc67e;
+    --color-highlight: #16314b;
+    --color-border: #2e3c4b;
+    --color-divider: #243140;
+    --color-input: #0f1720;
+    --color-focus-ring: rgba(121, 178, 230, 0.25);
+    --color-success-background: #16301b;
+    --color-error: #ff8a80;
+  }
 }
 
 *, *::before, *::after {
@@ -22,9 +48,25 @@ body {
   color: var(--color-text);
   background: var(--color-background);
   line-height: 1.6;
+  hyphens: auto;
+  overflow-wrap: break-word;
   max-width: 1100px;
   margin: 0 auto;
   padding: var(--spacing);
+}
+
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: var(--color-secondary);
+}
+
+.error-text {
+  color: var(--color-error);
 }
 
 /* Header */
@@ -32,6 +74,20 @@ body {
 header {
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.language-switcher {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.language-switcher a {
+  color: var(--color-secondary);
+}
+
+.language-switcher a:hover {
+  color: var(--color-primary);
 }
 
 header h1 {
@@ -46,14 +102,12 @@ header h1 {
   border-radius: var(--radius);
   padding: var(--spacing);
   text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .intro-box p {
   color: var(--color-text-light);
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.7;
 }
 
@@ -220,7 +274,8 @@ header h1 {
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
-  background: #fff;
+  background: var(--color-input);
+  color: var(--color-text);
   transition: border-color 0.15s;
 }
 
@@ -228,7 +283,29 @@ header h1 {
 .form-group select:focus {
   outline: none;
   border-color: var(--color-secondary);
-  box-shadow: 0 0 0 2px rgba(44, 95, 138, 0.15);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.form-group input.income-slider {
+  width: 100%;
+  margin: 0.5rem 0 0.25rem;
+  accent-color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.income-slider.is-unset {
+  opacity: 0.55;
+}
+
+.income-display {
+  display: block;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.income-slider.is-unset + .income-display {
+  font-weight: normal;
+  color: var(--color-text-light);
 }
 
 .help-text {
@@ -238,61 +315,55 @@ header h1 {
   margin-top: 0.25rem;
 }
 
-fieldset.form-group {
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
+.field-help {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
 }
 
-fieldset.form-group legend {
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0 0.4rem;
+.field-help summary {
+  cursor: pointer;
+  color: var(--color-secondary);
+  width: fit-content;
 }
 
-/* Radio / Checkbox Modules */
+.field-help summary:hover {
+  color: var(--color-primary);
+}
 
-.module-option {
+.field-help p {
+  margin: 0.35rem 0 0;
+}
+
+/* Checkbox */
+
+.checkbox-option {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
   padding: 0.6rem 0;
 }
 
-.module-option + .module-option {
-  border-top: 1px solid #eee;
-}
-
-.module-option input[type="radio"],
-.module-option input[type="checkbox"] {
+.checkbox-option input[type="checkbox"] {
   margin-top: 0.25rem;
   flex-shrink: 0;
 }
 
-.module-option label {
+.checkbox-option label {
   cursor: pointer;
   font-weight: normal;
   line-height: 1.4;
 }
 
-.module-option .module-time {
+.checkbox-option .checkbox-label {
   display: block;
   font-weight: 600;
 }
 
-.module-option .module-description {
+.checkbox-option .checkbox-description {
   display: block;
   font-size: 0.85rem;
   color: var(--color-text-light);
-}
-
-.module-separator {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-light);
-  padding: 0.75rem 0 0.25rem;
-  margin-top: 0.25rem;
-  border-top: 1px solid var(--color-border);
 }
 
 /* Result */
@@ -308,7 +379,7 @@ fieldset.form-group legend {
 }
 
 .notice.free-of-charge {
-  background: #e8f5e9;
+  background: var(--color-success-background);
   border-left: 4px solid var(--color-success);
   padding: 1rem 1.25rem;
   border-radius: var(--radius);
@@ -324,31 +395,7 @@ fieldset.form-group legend {
   font-size: 0.95rem;
 }
 
-.result-card {
-  background: var(--color-highlight);
-  border: 2px solid var(--color-secondary);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  text-align: center;
-  margin-bottom: 1.25rem;
-}
-
-.result-label {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--color-text-light);
-  margin-bottom: 0.25rem;
-}
-
-.result-value {
-  display: block;
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.result-details h3,
-#holiday-result h3 {
+.result-details h3 {
   font-size: 1rem;
   color: var(--color-primary);
   margin: 1rem 0 0.5rem;
@@ -356,39 +403,168 @@ fieldset.form-group legend {
   border-bottom: 1px solid var(--color-border);
 }
 
-.result-details dl,
-#holiday-result dl {
+.result-details dl {
   margin: 0;
 }
 
-.result-details dt,
-#holiday-result dt {
+.result-details dt {
   font-size: 0.85rem;
   color: var(--color-text-light);
   margin-top: 0.5rem;
 }
 
-.result-details dd,
-#holiday-result dd {
+.result-details dd {
   margin: 0;
   font-weight: 600;
   font-size: 0.95rem;
 }
 
-.result-details dd a {
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.button {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+  background: var(--color-card);
   color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-highlight);
+  color: var(--color-primary);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.copy-feedback {
+  font-size: 0.85rem;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.print-only {
+  display: none;
+}
+
+/* Module list with prices */
+
+#module-list-content h3 {
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin: 1.25rem 0 0.25rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.price-note {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin: 0 0 0.5rem;
+}
+
+.price-group {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin: 1rem 0 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.price-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+}
+
+.price-row + .price-row {
+  border-top: 1px solid var(--color-divider);
+}
+
+.price-module {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+.price-description {
+  font-weight: 700;
+}
+
+.price-time {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.price-amount {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.price-amount strong {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Forms */
+
+.form-links {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+}
+
+.form-links li + li {
+  margin-top: 0.5rem;
+}
+
+.form-links a {
+  color: var(--color-secondary);
+  font-weight: 600;
   text-decoration: none;
 }
 
-.result-details dd a:hover {
+.form-links a:hover {
   text-decoration: underline;
 }
 
-.holiday-info {
+.form-links span {
+  display: block;
   font-size: 0.85rem;
-  color: var(--color-text-light);
+}
+
+.forms .source {
   margin: 0.75rem 0 0;
-  font-style: italic;
 }
 
 /* Updates */
@@ -440,16 +616,107 @@ footer p {
 /* Print */
 
 @media print {
+  :root {
+    color-scheme: light;
+  }
+
   body {
     max-width: none;
     padding: 0;
+    background: #fff;
+    line-height: 1.45;
   }
+
+  header {
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    margin-bottom: 0;
+  }
+
+  .language-switcher,
+  .intro-box,
+  .calculator-form,
+  .result-actions,
   .summary,
-  .calculator-form {
-    break-inside: avoid;
+  footer {
+    display: none;
   }
+
+  .print-only {
+    display: block;
+  }
+
+  .print-subtitle {
+    margin: 0.25rem 0 0;
+    color: var(--color-text-light);
+  }
+
+  .calculator-container {
+    display: block;
+  }
+
   .calculator-result {
     position: static;
+    border: none;
+    padding: 0;
+  }
+
+  #print-inputs h3 {
+    margin-top: 0;
+  }
+
+  .result-details dl {
+    display: grid;
+    grid-template-columns: 16rem 1fr;
+    gap: 0.3rem 1rem;
+  }
+
+  .result-details dt,
+  .result-details dd {
+    margin: 0;
+  }
+
+  .price-row {
+    break-inside: avoid;
+    padding: 0.3rem 0;
+  }
+
+  .price-module {
+    display: block;
+  }
+
+  .price-time {
+    margin-left: 0.5rem;
+  }
+
+  .price-amount strong {
+    font-size: 1rem;
+  }
+
+  #module-list-content h3 {
+    margin-top: 0.75rem;
+  }
+
+  #module-list .result-details dl {
+    margin-top: 0.3rem;
+  }
+
+  .print-meta {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+  }
+
+  .print-meta p {
+    margin: 0.25rem 0;
+  }
+
+  .print-url {
+    overflow-wrap: anywhere;
   }
 }
 

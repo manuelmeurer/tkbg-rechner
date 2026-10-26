@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1720" media="(prefers-color-scheme: dark)">
+  <title>TKBG Rechner: Berlin After-School Care (eFöB/Hort) Fee Calculator</title>
+  <meta name="description" content="How much does after-school care (eFöB, Hort) cost in Berlin from grade 4? Calculate the monthly fee under the TKBG by income, care module and siblings. As of 1 Aug 2026.">
+  <link rel="canonical" href="https://tkbg.de/en/">
+  <link rel="alternate" hreflang="de" href="https://tkbg.de/">
+  <link rel="alternate" hreflang="en" href="https://tkbg.de/en/">
+  <link rel="alternate" hreflang="x-default" href="https://tkbg.de/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TKBG Rechner">
+  <meta property="og:title" content="TKBG Rechner: Berlin after-school care (eFöB/Hort) fee calculator">
+  <meta property="og:description" content="Calculate the monthly fee for after-school care (eFöB, Hort) at Berlin schools from grade 4, based on income, care module and number of children.">
+  <meta property="og:url" content="https://tkbg.de/en/">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:image" content="https://tkbg.de/og-image-en.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TKBG Rechner: Berlin after-school care fee calculator – example with a monthly fee of 123 EUR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TKBG Rechner: Berlin after-school care (eFöB/Hort) fee calculator">
+  <meta name="twitter:description" content="Calculate the monthly fee for after-school care (eFöB, Hort) at Berlin schools from grade 4, based on income, care module and number of children.">
+  <meta name="twitter:image" content="https://tkbg.de/og-image-en.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TKBG Rechner",
+      "url": "https://tkbg.de/en/",
+      "description": "Calculator for the parental contribution to after-school care (eFöB, Hort) at Berlin schools under the Tagesbetreuungskostenbeteiligungsgesetz (TKBG).",
+      "inLanguage": "en",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "author": { "@type": "Person", "name": "Manuel Meurer", "url": "https://manuelmeurer.com" }
+    }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="language-switcher" aria-label="Language">
+      <a href="/" hreflang="de" lang="de">Deutsch</a>
+    </nav>
+    <h1>🧮 TKBG Rechner</h1>
+    <p class="print-only print-subtitle">Contribution for after-school care (eFöB)</p>
+    <div class="intro-box">
+      <p>The <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V1P1" target="_blank" rel="nofollow noopener"><em>Tagesbetreuungskostenbeteiligungsgesetz</em></a> &ndash; TKBG for short, Berlin's childcare cost contribution act &ndash; sets out what parents in Berlin pay for eFöB (<em>ergänzende Förderung und Betreuung</em>, after-school care, often called &ldquo;Hort&rdquo;) at schools.</p>
+      <p>As is so often the case with German administrative law, the act is written in finest bureaucratic German: nested sentences, cross-references to annexes and columns, and terms like &ldquo;außerunterrichtliche schulische Betreuungsangebote&rdquo;. So that you don't need a law degree to work out the monthly contribution, <a href="https://manuelmeurer.com" target="_blank" rel="nofollow noopener">I</a> built this tool &ndash; just set your income with the slider and choose the school type and grade, and the calculator instantly shows the monthly contribution for every care module.</p>
+      <p>The law and all official documents are only available in German, and the <a href="/" hreflang="de">German version</a> of this page is authoritative. I can't guarantee that the data is correct, so please double-check the result against the official source. If you have questions or comments, or spot a mistake, <a href="mailto:manuel@meurer.io">feel free to get in touch</a>!</p>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="calculator-container">
+
+      <div class="calculator-form">
+        <h2>Your details</h2>
+        <form id="tkbg-form" novalidate>
+
+          <div class="form-group">
+            <label for="income">Annual family income</label>
+            <input type="range" id="income" name="income" min="1" max="41" step="1" value="21" class="income-slider is-unset" aria-describedby="income-display">
+            <output id="income-display" for="income" class="income-display">Please choose your income with the slider</output>
+            <small class="help-text">Total positive income of the child and the parent(s) the child lives with (for single parents, only that parent) in the last calendar year (profit or gross income minus income-related expenses, &sect; 2 Abs. 2 TKBG)</small>
+          </div>
+
+          <div class="form-group">
+            <label for="children">Children in the family</label>
+            <select id="children" name="children">
+              <option value="1">1 child</option>
+              <option value="2">2 children</option>
+              <option value="3">3 children</option>
+              <option value="4">4 or more children</option>
+            </select>
+            <small class="help-text">All children under 18, even if they are not in care or you pay maintenance for them (sibling discount, &sect; 3 Abs. 3 TKBG)</small>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox-option">
+              <input type="checkbox" id="foster-care" name="foster-care">
+              <label for="foster-care">
+                <span class="checkbox-label">Foster child or residential care (Pflegekind / stationäre Hilfe zur Erziehung)</span>
+                <span class="checkbox-description">The child does not live with their parents permanently. The minimum contribution applies regardless of income (&sect; 3 Abs. 2 TKBG).</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="school-type">School type</label>
+            <select id="school-type" name="school-type">
+              <option value="">-- Please select --</option>
+              <option value="offen">Offene Ganztagsschule (open all-day school)</option>
+              <option value="gebunden">Gebundene Ganztagsschule (compulsory all-day school)</option>
+              <option value="foerderschwerpunkt">Förderschwerpunkt Geistige Entwicklung (special needs focus: intellectual development; school or class)</option>
+              <option value="autismus">Förderschwerpunkt Autismus (special needs focus: autism; designated school or small class)</option>
+            </select>
+            <details class="field-help">
+              <summary>What does this mean?</summary>
+              <p><strong>Offene Ganztagsschule (open all-day school):</strong> lessons in the morning; care afterwards is optional and booked in modules (e.g. 13:30&ndash;16:00).</p>
+              <p><strong>Gebundene Ganztagsschule (compulsory all-day school):</strong> the all-day programme until 16:00 is compulsory for all pupils. eFöB only adds early morning care (6:00&ndash;7:30), late care (16:00&ndash;18:00) and the school holidays.</p>
+              <p>Ask the school or check its website to find out which type applies. The two Förderschwerpunkt options only apply to schools or classes with the special needs focus Geistige Entwicklung (intellectual development), or to designated schools and small classes with the special needs focus autism.</p>
+            </details>
+          </div>
+
+          <div class="form-group">
+            <label for="grade-level">Grade / level (Jahrgangsstufe / Stufe)</label>
+            <select id="grade-level" name="grade-level" disabled>
+              <option value="">-- Please select a school type first --</option>
+            </select>
+            <small class="help-text">Grades 1 to 3 and the Eingangsstufe and Unterstufe (entry and lower levels) are free of charge. Fees only apply from grade 4 or the Mittelstufe (middle level) (&sect; 3 Abs. 5 TKBG).</small>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="calculator-result">
+        <h2>Result</h2>
+
+        <div id="print-inputs" class="result-details print-only">
+          <h3>Your details</h3>
+          <dl>
+            <dt>Annual income</dt>
+            <dd id="print-income">–</dd>
+
+            <dt>Children in the family</dt>
+            <dd id="print-children">–</dd>
+
+            <dt>Foster child or residential care</dt>
+            <dd id="print-foster-care">–</dd>
+
+            <dt>School type</dt>
+            <dd id="print-school-type">–</dd>
+
+            <dt>Grade / level</dt>
+            <dd id="print-grade-level">–</dd>
+          </dl>
+        </div>
+
+        <div id="result-empty" class="result-placeholder">
+          <p>Please fill in the form to see the contributions.</p>
+        </div>
+
+        <div id="free-notice" class="notice free-of-charge hidden">
+          <h3>Free of charge</h3>
+          <p>After-school care is free of charge for pupils in grades 1 to 3 and in the Eingangsstufe and Unterstufe (entry and lower levels) at schools and in classes with the Förderschwerpunkt Geistige Entwicklung (&sect; 3 Abs. 5 TKBG).</p>
+        </div>
+
+        <div id="module-list" class="hidden">
+          <div class="result-details">
+            <dl>
+              <dt>Income bracket</dt>
+              <dd id="module-list-bracket">--</dd>
+
+              <dt>Discount</dt>
+              <dd id="module-list-discount">--</dd>
+            </dl>
+          </div>
+          <div id="module-list-content"></div>
+        </div>
+
+        <div id="result-actions" class="result-actions hidden">
+          <button type="button" id="copy-link" class="button">Copy link</button>
+          <button type="button" id="print" class="button">Print / save as PDF</button>
+          <span id="copy-link-feedback" class="copy-feedback" role="status"></span>
+        </div>
+
+        <div id="print-meta" class="print-meta print-only">
+          <p>Calculated on <span id="print-date"></span> with the TKBG Rechner. Link to this calculation:<br><span id="print-url" class="print-url"></span></p>
+          <p>All information without guarantee. As of: TKBG from 1 August 2026.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="summary forms">
+      <h2>Applications and forms</h2>
+      <p class="summary-intro">You apply for eFöB through the school; the Jugendamt (youth welfare office) of your home district decides on eligibility and sets the contribution. From grade 4, a new application is required, together with the income declaration. The official forms of the Senate Department for Education, Youth and Family (all forms are in German only):</p>
+      <ul class="form-links">
+        <li>
+          <a href="https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ogb.pdf" target="_blank" rel="nofollow noopener" hreflang="de">Antrag auf ergänzende Förderung und Betreuung an der offenen Ganztagsschule</a> (PDF)
+          <span>Application for after-school care at an open all-day school</span>
+        </li>
+        <li>
+          <a href="https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ggb.pdf" target="_blank" rel="nofollow noopener" hreflang="de">Antrag auf ergänzende Förderung und Betreuung an der gebundenen Ganztagsschule</a> (PDF)
+          <span>Application for after-school care at a compulsory all-day school</span>
+        </li>
+        <li>
+          <a href="https://www.berlin.de/sen/bjf/service/formulare/antrag-efoeb-ge.pdf" target="_blank" rel="nofollow noopener" hreflang="de">Antrag auf ergänzende Förderung und Betreuung an Schulen mit sonderpädagogischem Förderschwerpunkt</a> (PDF)
+          <span>Application for after-school care at schools with a special needs focus, e.g. Geistige Entwicklung (intellectual development)</span>
+        </li>
+        <li>
+          <a href="https://www.berlin.de/sen/bjf/service/formulare/erklaerung-fuer-die-festsetzung-der-hortkosten.pdf" target="_blank" rel="nofollow noopener" hreflang="de">Erklärung für die Festsetzung der Beteiligung an den Kosten der Tagesbetreuung</a> (PDF)
+          <span>Income declaration from grade 4, for the last calendar year</span>
+        </li>
+        <li>
+          <a href="https://www.berlin.de/sen/bjf/service/formulare/erlaeuterungen-kostenfestsetzung-efoeb.pdf" target="_blank" rel="nofollow noopener" hreflang="de">Erläuterungen zur Beteiligung an den Kosten der ergänzenden Förderung und Betreuung</a> (PDF)
+          <span>Explanatory notes on the income declaration and how the contribution is set</span>
+        </li>
+        <li>
+          <a href="https://service.berlin.de/dienstleistung/324901/" target="_blank" rel="nofollow noopener" hreflang="de">Schule &ndash; Ergänzende Förderung und Betreuung beantragen</a>
+          <span>Service Portal Berlin: requirements, documents, deadlines and responsible youth welfare offices</span>
+        </li>
+      </ul>
+      <p class="source"><a href="https://www.berlin.de/sen/bjf/service/formulare/#efoeb" target="_blank" rel="nofollow noopener" hreflang="de">All forms of the Senate Department for Education, Youth and Family (in German)</a></p>
+    </section>
+
+    <section class="summary">
+      <h2>Overview: Tagesbetreuungskostenbeteiligungsgesetz (TKBG)</h2>
+      <p class="summary-intro">Below is a short summary of each section of the TKBG. The full legal text (in German) is available in the <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V1P1" target="_blank" rel="nofollow noopener">Berlin legislation and case law database</a>.</p>
+
+      <details>
+        <summary>&sect; 1 &ndash; Cost contribution (Kostenbeteiligung)</summary>
+        <p>The child and their parents contribute to the average cost of care in a Kita, in childminding or in after-school care at schools, as well as to the cost of any meals included. If the child lives with only one parent, only the two of them are liable to contribute.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V1P1" target="_blank" rel="nofollow noopener">Source: &sect; 1 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 2 &ndash; Basis of assessment</summary>
+        <p>The contribution depends on income, the type of care and the amount of care. Income means the total positive income within the meaning of the Income Tax Act (Einkommensteuergesetz) in the last calendar year before the assessment; losses may not be offset. If income in the current year is expected to be lower, it can be used instead on application.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP2" target="_blank" rel="nofollow noopener">Source: &sect; 2 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 3 &ndash; Amount of the contribution</summary>
+        <p>The amounts are set out in the annexes (Anlagen) to the act and are rounded to full euros. Sibling discount: families with two children pay 80&nbsp;%, with three children 60&nbsp;% and with four or more children 50&nbsp;% per child. For foster children and children in residential care, the minimum contribution applies. After-school care in grades 1 to 3 and in the Eingangsstufe and Unterstufe (entry and lower levels) at schools and in classes with the Förderschwerpunkt Geistige Entwicklung is free of charge.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10P3" target="_blank" rel="nofollow noopener">Source: &sect; 3 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 4 &ndash; Individual calculation, hardship rule</summary>
+        <p>After the contribution has been set, a review under &sect; 90 Abs. 3 and 4 SGB VIII can be requested. If income is below the threshold of &sect; 85 SGB XII, only the minimum contribution is considered reasonable. In cases of hardship, payment can be waived in full or in part for a limited time on application.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP4" target="_blank" rel="nofollow noopener">Source: &sect; 4 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 4a &ndash; Care at schools</summary>
+        <p>Defines the care modules and which column of the annexes applies. Offene Ganztagsschule (open all-day school): early morning care (6:00&ndash;7:30), afternoon (13:30&ndash;16:00) and late care (16:00&ndash;18:00, only together with the afternoon); during school holidays additionally 7:30&ndash;13:30. Gebundene Ganztagsschule (compulsory all-day school): early morning and late care; during school holidays additionally 7:30&ndash;16:00. Holiday care only is also possible (contract for at least one school year, payment in twelve monthly instalments). At schools and in classes with the Förderschwerpunkt Geistige Entwicklung and for autism (designated schools and small classes) there is early morning care and 15:00&ndash;16:00 or 15:00&ndash;18:00; for the Oberstufe and Abschlussstufe (upper and final levels) and grades 7 to 10, Anlage 2a and separate holiday modules apply.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10P4a" target="_blank" rel="nofollow noopener">Source: &sect; 4a TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 5 &ndash; Setting the contribution</summary>
+        <p>Without proof of income, the maximum contribution is charged. The assessment is reviewed at least once a year. Changes apply from the month of the application or review, and retroactively only if reporting obligations were breached. If the amount of care changes by the 20th of a month, the change applies to the whole month.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP5" target="_blank" rel="nofollow noopener">Source: &sect; 5 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 6 &ndash; Start and end of the contribution</summary>
+        <p>If care starts by the 20th of a month, the full monthly contribution is due; otherwise only from the following month. If the child leaves before the end of a month, the full monthly contribution is payable. Not using the care in full does not reduce the contribution.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP6" target="_blank" rel="nofollow noopener">Source: &sect; 6 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 7 &ndash; Administrative regulations and procedure</summary>
+        <p>The Senate Department responsible for schools and youth issues the administrative regulations. The procedure is governed by SGB X (Book Ten of the German Social Code).</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP7" target="_blank" rel="nofollow noopener">Source: &sect; 7 TKBG</a></p>
+      </details>
+
+      <details>
+        <summary>&sect; 9 &ndash; Entry into force</summary>
+        <p>The act applies in the version of 23 April 2010 and has been amended several times since, most recently by the act of 9 July 2026 (in force since 1 August 2026). The amounts in Anlage 2 and 2a have remained unchanged since 1 August 2022.</p>
+        <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP9" target="_blank" rel="nofollow noopener">Source: &sect; 9 TKBG</a></p>
+      </details>
+
+      <div class="sources-total">
+        <strong>Cost tables:</strong>
+        <a href="https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000039" target="_blank" rel="nofollow noopener">Anlage 2 TKBG</a>,
+        <a href="https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000040" target="_blank" rel="nofollow noopener">Anlage 2a TKBG</a>
+      </div>
+    </section>
+
+    <section class="summary updates">
+      <h2>Updates</h2>
+      <dl id="updates-list"></dl>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Based on the Tagesbetreuungskostenbeteiligungsgesetz (TKBG), &sect; 4a, Anlage 2 and 2a.</p>
+    <p>As of: TKBG in the version applicable from 1 August 2026. All information without guarantee. The German version is authoritative.</p>
+    <p id="checked" class="hidden">Data last checked on <span id="checked-date"></span>.</p>
+    <p><a href="https://github.com/manuelmeurer/tkbg-rechner" target="_blank" rel="nofollow noopener">Source code on GitHub</a></p>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/calculator.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
