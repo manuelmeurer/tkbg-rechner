@@ -1,25 +1,26 @@
 {
   "meta": {
-    "gueltigAb": "2022-08-01",
-    "gueltigBis": "2023-07-31",
+    "gueltigAb": "2026-08-01",
+    "betraegeGueltigAb": "2022-08-01",
+    "stand": "Art. 2 des Gesetzes vom 09.07.2026 (GVBl. S. 700, 705)",
     "gesetz": "Tagesbetreuungskostenbeteiligungsgesetz (TKBG)",
     "paragraph": "4a",
     "waehrung": "EUR",
-    "quelle": "https://gesetze.berlin.de/bsbe/document/jlr-TagEinrKostBetGBE2010V9P4a"
+    "quelle": "https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V1P1"
   },
   "anlage2": {
-    "beschreibung": "Kostenbeitrag (Betreuungsanteil) pro Monat in Euro - Jahrgangsstufen 4 bis 6, Mittelstufe an Schulen mit dem sonderpädagogischen Förderschwerpunkt Geistige Entwicklung",
+    "beschreibung": "Kostenbeitrag (Betreuungsanteil) pro Monat in Euro - Jahrgangsstufen 4 bis 6, Mittelstufe an Schulen oder Klassen mit dem sonderpädagogischen Förderschwerpunkt Geistige Entwicklung",
     "spalten": [
-      { "id": 1, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Frühmodul", "schulformen": ["offen", "gebunden"], "istFerienmodul": false },
-      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätmodul", "schulformen": ["gebunden"], "istFerienmodul": false },
-      { "id": 3, "zeitraum": "13:30-16:00", "stunden": 2.5, "beschreibung": "Nachmittagsmodul", "schulformen": ["offen"], "istFerienmodul": false },
-      { "id": 4, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätmodul", "schulformen": ["gebunden"], "istFerienmodul": false },
-      { "id": 5, "zeitraum": "06:00-07:30 + 13:30-16:00", "stunden": 4.0, "beschreibung": "Früh- und Nachmittagsmodul", "schulformen": ["offen"], "istFerienmodul": false },
-      { "id": 6, "zeitraum": "13:30-18:00", "stunden": 4.5, "beschreibung": "Nachmittag- und Spätmodul", "schulformen": ["offen"], "istFerienmodul": false },
-      { "id": 7, "zeitraum": "06:00-07:30 + 13:30-18:00", "stunden": 6.0, "beschreibung": "Früh-, Nachmittag- und Spätmodul", "schulformen": ["offen"], "istFerienmodul": false },
-      { "id": 8, "zeitraum": "15:00-16:00", "stunden": 1.0, "beschreibung": "Mittelstufe Nachmittagsmodul", "schulformen": ["foerderschwerpunkt"], "nurMittelstufe": true, "istFerienmodul": false },
-      { "id": 9, "zeitraum": "07:30-13:30", "stunden": 6.0, "beschreibung": "Nur Ferienbetreuung", "schulformen": ["offen"], "istFerienmodul": true },
-      { "id": 10, "zeitraum": "07:30-16:00", "stunden": 8.5, "beschreibung": "Nur Ferienbetreuung", "schulformen": ["gebunden"], "istFerienmodul": true }
+      { "id": 1, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Frühbetreuung" },
+      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätbetreuung (nur gebundene Ganztagsschule)" },
+      { "id": 3, "zeitraum": "13:30-16:00", "stunden": 2.5, "beschreibung": "Nachmittagsbetreuung" },
+      { "id": 4, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätbetreuung (nur gebundene Ganztagsschule)" },
+      { "id": 5, "zeitraum": "06:00-07:30 + 13:30-16:00", "stunden": 4.0, "beschreibung": "Früh- und Nachmittagsbetreuung" },
+      { "id": 6, "zeitraum": "13:30-18:00", "stunden": 4.5, "beschreibung": "Nachmittags- und Spätbetreuung" },
+      { "id": 7, "zeitraum": "06:00-07:30 + 13:30-18:00", "stunden": 6.0, "beschreibung": "Früh-, Nachmittags- und Spätbetreuung" },
+      { "id": 8, "zeitraum": "15:00-16:00", "stunden": 1.0, "beschreibung": "Nachmittagsbetreuung (nur Mittelstufe bzw. Jahrgangsstufen 4 bis 6 Autismus)" },
+      { "id": 9, "zeitraum": "07:30-13:30", "stunden": 6.0, "beschreibung": "Nur Ferienbetreuung" },
+      { "id": 10, "zeitraum": "07:30-16:00", "stunden": 8.5, "beschreibung": "Nur Ferienbetreuung" }
     ],
     "einkommensstufen": [
       { "nr": 1,  "bis": 22499.99, "monatlich": 1875.00, "kosten": [9, 10, 11, 14, 15, 16, 20, 5, 3, 4] },
@@ -66,13 +67,13 @@
     ]
   },
   "anlage2a": {
-    "beschreibung": "Kostenbeitrag (Betreuungsanteil) pro Monat in Euro - Ober- und Abschlussstufe an Schulen mit dem sonderpädagogischen Förderschwerpunkt Geistige Entwicklung, Jahrgangsstufen 7 bis 10 an Auftragsschulen",
+    "beschreibung": "Kostenbeitrag (Betreuungsanteil) pro Monat in Euro - Ober- und Abschlussstufe an Schulen oder Klassen mit dem sonderpädagogischen Förderschwerpunkt Geistige Entwicklung, Jahrgangsstufen 7 bis 10 mit sonderpädagogischem Förderbedarf in den Förderschwerpunkten Geistige Entwicklung oder Autismus oder mit den Förderstufen I oder II",
     "spalten": [
-      { "id": 1, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Frühmodul", "istFerienmodul": false },
-      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätmodul", "istFerienmodul": false },
-      { "id": 3, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätmodul", "istFerienmodul": false },
-      { "id": 4, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Ferienmodul Frühbetreuung", "istFerienmodul": true },
-      { "id": 5, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Ferienmodul Spätbetreuung", "istFerienmodul": true }
+      { "id": 1, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Frühbetreuung (ohne Ferienbetreuung)" },
+      { "id": 2, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Spätbetreuung (ohne Ferienbetreuung)" },
+      { "id": 3, "zeitraum": "06:00-07:30 + 16:00-18:00", "stunden": 3.5, "beschreibung": "Früh- und Spätbetreuung (ohne Ferienbetreuung)" },
+      { "id": 4, "zeitraum": "06:00-07:30", "stunden": 1.5, "beschreibung": "Nur Ferienbetreuung" },
+      { "id": 5, "zeitraum": "16:00-18:00", "stunden": 2.0, "beschreibung": "Nur Ferienbetreuung" }
     ],
     "einkommensstufen": [
       { "nr": 1,  "bis": 22499.99, "monatlich": 1875.00, "kosten": [7, 7, 10, 2, 3] },
@@ -117,5 +118,54 @@
       { "nr": 40, "ab": 79620.00,  "monatlich": 6635.00, "kosten": [80, 89, 124, 27, 30] },
       { "nr": 41, "ab": 81060.00,  "monatlich": 6755.00, "kosten": [81, 91, 127, 28, 31] }
     ]
+  },
+  "modulgruppen": {
+    "offen": {
+      "beschreibung": "Offene Ganztagsschule, Jahrgangsstufen 4 bis 6 (§ 4a Abs. 1)",
+      "ferienKombinierbar": false,
+      "module": [
+        { "id": "o1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "o3", "zeitraum": "13:30-16:00", "beschreibung": "Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 3, "istFerienmodul": false },
+        { "id": "o5", "zeitraum": "06:00-07:30 + 13:30-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 5, "istFerienmodul": false },
+        { "id": "o6", "zeitraum": "13:30-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
+        { "id": "o7", "zeitraum": "06:00-07:30 + 13:30-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 7, "istFerienmodul": false },
+        { "id": "o9", "zeitraum": "07:30-13:30", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 9, "istFerienmodul": true }
+      ]
+    },
+    "gebunden": {
+      "beschreibung": "Gebundene Ganztagsschule, Jahrgangsstufen 4 bis 6 (§ 4a Abs. 2)",
+      "ferienKombinierbar": false,
+      "module": [
+        { "id": "g1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "g2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
+        { "id": "g4", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
+        { "id": "g10", "zeitraum": "07:30-16:00", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
+      ]
+    },
+    "mittelstufe": {
+      "beschreibung": "Mittelstufe (Förderschwerpunkt Geistige Entwicklung) bzw. Jahrgangsstufen 4 bis 6 (Autismus) (§ 4a Abs. 4 und 6)",
+      "ferienKombinierbar": false,
+      "module": [
+        { "id": "m1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "anlage": "anlage2", "spalte": 1, "istFerienmodul": false },
+        { "id": "m8", "zeitraum": "15:00-16:00", "beschreibung": "Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 8, "istFerienmodul": false },
+        { "id": "m2", "zeitraum": "15:00-18:00", "beschreibung": "Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 2, "istFerienmodul": false },
+        { "id": "m4", "zeitraum": "06:00-07:30 + 15:00-16:00", "beschreibung": "Früh- und Nachmittagsbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": false },
+        { "id": "m6", "zeitraum": "06:00-07:30 + 15:00-18:00", "beschreibung": "Früh-, Nachmittags- und Spätbetreuung", "anlage": "anlage2", "spalte": 6, "istFerienmodul": false },
+        { "id": "m10", "zeitraum": "08:00-15:00", "beschreibung": "Nur Ferienbetreuung", "anlage": "anlage2", "spalte": 10, "istFerienmodul": true }
+      ]
+    },
+    "oberstufe": {
+      "beschreibung": "Ober- und Abschlussstufe bzw. Jahrgangsstufen 7 bis 10 (§ 4a Abs. 4 und 6)",
+      "ferienKombinierbar": true,
+      "module": [
+        { "id": "a1", "zeitraum": "06:00-07:30", "beschreibung": "Frühbetreuung (ggf. bis Unterrichtsbeginn)", "anlage": "anlage2a", "spalte": 1, "istFerienmodul": false },
+        { "id": "a2", "zeitraum": "16:00-18:00", "beschreibung": "Spätbetreuung", "anlage": "anlage2a", "spalte": 2, "istFerienmodul": false },
+        { "id": "a3", "zeitraum": "06:00-07:30 + 16:00-18:00", "beschreibung": "Früh- und Spätbetreuung", "anlage": "anlage2a", "spalte": 3, "istFerienmodul": false },
+        { "id": "f13", "zeitraum": "07:30-13:30", "beschreibung": "Ferienbetreuung", "anlage": "anlage2", "spalte": 4, "istFerienmodul": true },
+        { "id": "f16", "zeitraum": "07:30-16:00", "beschreibung": "Ferienbetreuung", "anlage": "anlage2", "spalte": 5, "istFerienmodul": true },
+        { "id": "fa4", "zeitraum": "06:00-07:30", "beschreibung": "Ferienbetreuung früh", "anlage": "anlage2a", "spalte": 4, "istFerienmodul": true },
+        { "id": "fa5", "zeitraum": "16:00-18:00", "beschreibung": "Ferienbetreuung spät", "anlage": "anlage2a", "spalte": 5, "istFerienmodul": true }
+      ]
+    }
   }
 }

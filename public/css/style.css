@@ -391,6 +391,37 @@ fieldset.form-group legend {
   font-style: italic;
 }
 
+/* Updates */
+
+.updates dl {
+  margin: 0;
+}
+
+.updates dt {
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-top: 0.75rem;
+}
+
+.updates dt:first-child {
+  margin-top: 0;
+}
+
+.updates dd {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.updates dd p {
+  margin: 0;
+}
+
+.updates ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.25rem;
+}
+
 /* Footer */
 
 footer {
@@ -421,3 +452,4 @@ footer p {
     position: static;
   }
 }
+

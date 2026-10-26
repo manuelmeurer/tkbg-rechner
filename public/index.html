@@ -40,12 +40,13 @@
               <option value="">-- Bitte wählen --</option>
               <option value="offen">Offene Ganztagsschule</option>
               <option value="gebunden">Gebundene Ganztagsschule</option>
-              <option value="foerderschwerpunkt">Förderschwerpunkt Geistige Entwicklung</option>
+              <option value="foerderschwerpunkt">Förderschwerpunkt Geistige Entwicklung (Schule oder Klasse)</option>
+              <option value="autismus">Förderschwerpunkt Autismus (Auftragsschule oder Kleinklasse)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="grade-level">Jahrgangsstufe</label>
+            <label for="grade-level">Jahrgangsstufe / Stufe</label>
             <select id="grade-level" name="grade-level" disabled>
               <option value="">-- Bitte zuerst Schulform wählen --</option>
             </select>
@@ -71,7 +72,7 @@
 
         <div id="free-notice" class="notice free-of-charge hidden">
           <h3>Kostenfrei</h3>
-          <p>Die ergänzende Förderung und Betreuung ist für Schülerinnen und Schüler der Jahrgangsstufen 1 und 2 sowie der Eingangsstufe kostenfrei.</p>
+          <p>Die ergänzende Förderung und Betreuung ist für Schülerinnen und Schüler der Jahrgangsstufen 1 bis 3 sowie der Eingangs- und Unterstufe an Schulen und in Klassen mit dem Förderschwerpunkt Geistige Entwicklung kostenfrei (&sect; 3 Abs. 5 TKBG).</p>
         </div>
 
         <div id="cost-result" class="hidden">
@@ -86,21 +87,16 @@
               <dt>Einkommensstufe</dt>
               <dd id="income-bracket-display">--</dd>
 
-              <dt>Verwendete Tabelle</dt>
+              <dt>Tabelle und Spalte</dt>
               <dd id="table-display">--</dd>
-
-              <dt>Spalte</dt>
-              <dd id="column-display">--</dd>
 
               <dt>Gewähltes Modul</dt>
               <dd id="module-display">--</dd>
-
-              <dt>Betreuungsumfang</dt>
-              <dd id="scope-display">--</dd>
             </dl>
           </div>
 
           <p id="holiday-info" class="holiday-info hidden">Ferienbetreuung ist in diesem Modul enthalten.</p>
+          <p class="holiday-info">Ohne Geschwisterermäßigung: bei zwei Kindern zahlt man 80&nbsp;%, bei drei 60&nbsp;%, ab vier 50&nbsp;% des Betrags (&sect; 3 Abs. 3 TKBG).</p>
         </div>
       </div>
 
@@ -112,70 +108,89 @@
 
       <details>
         <summary>&sect; 1 &ndash; Kostenbeteiligung</summary>
-        <p>Für die Betreuung von Kindern in Tageseinrichtungen, Kindertagespflege und außerunterrichtlichen schulischen Betreuungsangeboten wird von den Eltern eine Kostenbeteiligung erhoben. Diese besteht aus einem einkommensabhängigen Betreuungsanteil und einem Verpflegungsanteil.</p>
+        <p>Das Kind und seine Eltern beteiligen sich an den durchschnittlichen Kosten der Betreuung in Kita, Kindertagespflege oder ergänzender Betreuung an Schulen sowie an den Kosten einer im Angebot enthaltenen Verpflegung. Lebt das Kind nur mit einem Elternteil zusammen, sind nur diese beiden kostenbeteiligungspflichtig.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V1P1" target="_blank" rel="nofollow noopener">Quelle: &sect; 1 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 2 &ndash; Bemessungsgrundlage der Kostenbeteiligung</summary>
-        <p>Bemessungsgrundlage ist das Brutto-Familieneinkommen des vorletzten Kalenderjahres. Berücksichtigt werden die Einkünfte der Eltern sowie bestimmte steuerfreie Bezüge. Bei mehreren Kindern in Betreuung gibt es Ermäßigungen.</p>
+        <p>Die Kostenbeteiligung richtet sich nach dem Einkommen, der Art der Betreuung und dem Betreuungsumfang. Als Einkommen gilt die Summe der positiven Einkünfte im Sinne des Einkommensteuergesetzes im letzten Kalenderjahr vor der Festsetzung; Verluste dürfen nicht verrechnet werden. Ist das Einkommen im laufenden Jahr voraussichtlich geringer, kann auf Antrag dieses zugrunde gelegt werden.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP2" target="_blank" rel="nofollow noopener">Quelle: &sect; 2 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 3 &ndash; Höhe der Kostenbeteiligung</summary>
-        <p>Die Höhe der Kostenbeteiligung richtet sich nach dem Einkommen, der Betreuungszeit und dem Alter des Kindes. Die konkreten Beträge ergeben sich aus den Anlagen zum Gesetz. Für Kinder der Jahrgangsstufen 1 und 2 ist die Betreuung kostenfrei.</p>
+        <p>Die Beträge ergeben sich aus den Anlagen zum Gesetz und werden auf volle Euro gerundet. Geschwisterermäßigung: Familien mit zwei Kindern zahlen 80&nbsp;%, mit drei Kindern 60&nbsp;% und mit vier oder mehr Kindern 50&nbsp;% je Kind. Für Pflegekinder und bei stationärer Hilfe zur Erziehung gilt der Mindestbetrag. Die ergänzende Förderung und Betreuung in den Jahrgangsstufen 1 bis 3 sowie in der Eingangs- und Unterstufe an Schulen und in Klassen mit dem Förderschwerpunkt Geistige Entwicklung ist kostenfrei.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10P3" target="_blank" rel="nofollow noopener">Quelle: &sect; 3 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 4 &ndash; Individuelle Berechnung, Härteregelung</summary>
-        <p>Auf Antrag kann eine individuelle Berechnung der Kostenbeteiligung erfolgen, wenn das aktuelle Einkommen wesentlich niedriger ist als das der Bemessungsgrundlage. In Härtefällen kann die Kostenbeteiligung ermäßigt oder erlassen werden.</p>
+        <p>Nach der Festsetzung kann eine Überprüfung des Kostenbeitrags nach &sect; 90 Abs. 3 und 4 SGB VIII beantragt werden. Liegt das Einkommen unter der Grenze des &sect; 85 SGB XII, ist nur der Mindestbetrag zumutbar. In Härtefällen kann auf Antrag befristet ganz oder teilweise von der Zahlung abgesehen werden.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP4" target="_blank" rel="nofollow noopener">Quelle: &sect; 4 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 4a &ndash; Angebote an Schulen</summary>
-        <p>Regelt die Betreuungsmodule an offenen und gebundenen Ganztagsschulen der Primarstufe sowie an Schulen mit sonderpädagogischem Förderschwerpunkt. Die Module umfassen Frühbetreuung (6:00&ndash;7:30), Nachmittagsbetreuung (13:30&ndash;16:00) und Spätbetreuung (16:00&ndash;18:00). Die Kostenbeiträge richten sich nach Anlage 2 bzw. Anlage 2a.</p>
+        <p>Regelt die Betreuungsmodule und welche Spalte der Anlagen gilt. Offene Ganztagsschule: Frühbetreuung (6:00&ndash;7:30), Nachmittag (13:30&ndash;16:00) und Spätbetreuung (16:00&ndash;18:00, nur zusammen mit dem Nachmittag); in den Ferien zusätzlich 7:30&ndash;13:30. Gebundene Ganztagsschule: Früh- und Spätbetreuung; in den Ferien zusätzlich 7:30&ndash;16:00. Auch reine Ferienbetreuung ist möglich (Vertrag über mindestens ein Schuljahr, Zahlung in zwölf Monatsraten). An Schulen und in Klassen mit dem Förderschwerpunkt Geistige Entwicklung sowie bei Autismus (Auftragsschulen und Kleinklassen) gibt es Frühbetreuung und 15:00&ndash;16:00 bzw. 15:00&ndash;18:00; für Ober- und Abschlussstufe und die Jahrgangsstufen 7 bis 10 gelten Anlage 2a und eigene Ferienmodule.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10P4a" target="_blank" rel="nofollow noopener">Quelle: &sect; 4a TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 5 &ndash; Festsetzung der Kostenbeteiligung</summary>
-        <p>Die Kostenbeteiligung wird durch das zuständige Jugendamt festgesetzt. Die Eltern sind zur Auskunft über ihre Einkommensverhältnisse verpflichtet.</p>
+        <p>Ohne Einkommensnachweis wird der Höchstbetrag festgesetzt. Die Festsetzung wird mindestens einmal jährlich überprüft. Änderungen gelten ab dem Monat des Antrags bzw. der Überprüfung, rückwirkend nur, wenn Mitteilungspflichten verletzt wurden. Ändert sich der Betreuungsumfang bis zum 20. eines Monats, gilt dies für den ganzen Monat.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP5" target="_blank" rel="nofollow noopener">Quelle: &sect; 5 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 6 &ndash; Beginn und Ende der Kostenbeteiligung</summary>
-        <p>Die Kostenbeteiligung beginnt mit dem Monat der Aufnahme in die Betreuung und endet mit dem Monat des Ausscheidens. Bei Änderung der Verhältnisse ist eine Neuberechnung möglich.</p>
+        <p>Beginnt die Betreuung bis zum 20. eines Monats, ist der volle Monatsbeitrag fällig, sonst erst ab dem Folgemonat. Bei Ausscheiden vor Monatsende ist der volle Monatsbeitrag zu zahlen. Wird die Betreuung nicht voll genutzt, mindert das den Beitrag nicht.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP6" target="_blank" rel="nofollow noopener">Quelle: &sect; 6 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 7 &ndash; Ausführungsvorschriften, Verwaltungsverfahren</summary>
-        <p>Die für Jugend und Familie zuständige Senatsverwaltung wird ermächtigt, Ausführungsvorschriften zu erlassen. Dies betrifft insbesondere die nähere Bestimmung des Einkommens und das Verwaltungsverfahren.</p>
+        <p>Die für Schulwesen und Jugend zuständige Senatsverwaltung erlässt die Verwaltungsvorschriften. Für das Verfahren gelten die Vorschriften des SGB X.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP7" target="_blank" rel="nofollow noopener">Quelle: &sect; 7 TKBG</a></p>
       </details>
 
       <details>
         <summary>&sect; 9 &ndash; Inkrafttreten</summary>
-        <p>Das Gesetz ist in der Fassung vom 23. April 2010 in Kraft getreten. Die hier verwendeten Kostentabellen gelten ab 01.08.2022.</p>
+        <p>Das Gesetz gilt in der Fassung vom 23. April 2010 und wurde seitdem mehrfach geändert, zuletzt durch Gesetz vom 9. Juli 2026 (in Kraft seit 01.08.2026). Die Beträge der Anlagen 2 und 2a gelten unverändert seit 01.08.2022.</p>
         <p class="source"><a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010pP9" target="_blank" rel="nofollow noopener">Quelle: &sect; 9 TKBG</a></p>
       </details>
 
       <div class="sources-total">
         <strong>Kostentabellen:</strong>
-        <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10Anlage2" target="_blank" rel="nofollow noopener">Anlage 2 TKBG</a>,
-        <a href="https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V9Anlage2a" target="_blank" rel="nofollow noopener">Anlage 2a TKBG</a>
+        <a href="https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000039" target="_blank" rel="nofollow noopener">Anlage 2 TKBG</a>,
+        <a href="https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000040" target="_blank" rel="nofollow noopener">Anlage 2a TKBG</a>
       </div>
+    </section>
+
+    <section class="summary updates">
+      <h2>Updates</h2>
+      <dl>
+        <dt>26.10.2026</dt>
+        <dd>
+          <p>Aktualisierung auf den Stand des TKBG vom 01.08.2026 (zuletzt geändert durch Gesetz vom 09.07.2026). Die Beträge in Anlage 2 und 2a sind unverändert.</p>
+          <ul>
+            <li>Jahrgangsstufe 3 sowie die Unterstufe (Förderschwerpunkt Geistige Entwicklung) sind kostenfrei. Das gilt bereits seit 01.08.2023 und war im Rechner noch nicht berücksichtigt.</li>
+            <li>Neue Schulform &bdquo;Förderschwerpunkt Autismus&ldquo; (Auftragsschule oder Kleinklasse). Der Förderschwerpunkt Geistige Entwicklung gilt seit 01.08.2026 auch für entsprechende Klassen an allgemeinen Schulen.</li>
+            <li>Förderschwerpunkt Geistige Entwicklung nach Stufen statt nach Jahrgangsstufen, mit den Modulen nach &sect; 4a Abs. 6 (u.&nbsp;a. 15:00&ndash;16:00 und 15:00&ndash;18:00).</li>
+            <li>Ferienmodule für Ober- und Abschlussstufe sowie Jahrgangsstufen 7 bis 10, auch zusätzlich zu einem Schulzeitmodul.</li>
+            <li>Gesetzesübersicht korrigiert, u.&nbsp;a.: Maßgeblich ist das Einkommen des letzten (nicht vorletzten) Kalenderjahres.</li>
+          </ul>
+        </dd>
+        <dt>02.03.2026</dt>
+        <dd><p>Erste Version des Rechners.</p></dd>
+      </dl>
     </section>
 
   </main>
 
   <footer>
     <p>Basierend auf dem Tagesbetreuungskostenbeteiligungsgesetz (TKBG), &sect; 4a, Anlage 2 und 2a.</p>
-    <p>Gültig ab 01.08.2022. Alle Angaben ohne Gewähr.</p>
+    <p>Stand: TKBG in der ab 01.08.2026 geltenden Fassung. Alle Angaben ohne Gewähr.</p>
     <p><a href="https://github.com/manuelmeurer/tkbg-rechner" target="_blank" rel="nofollow noopener">Quellcode auf GitHub</a></p>
   </footer>
 

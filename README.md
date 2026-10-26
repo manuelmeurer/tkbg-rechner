@@ -5,8 +5,8 @@ Rechner für den monatlichen Kostenbeitrag der ergänzenden Förderung und Betre
 ## Funktionen
 
 - Berechnung des monatlichen Kostenbeitrags anhand von Einkommen, Schulform, Jahrgangsstufe und Betreuungsmodul
-- Unterstützung für offene und gebundene Ganztagsschulen sowie Schulen mit sonderpädagogischem Förderschwerpunkt (Geistige Entwicklung)
-- Kostentabellen nach [Anlage 2](https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V10Anlage2) und [Anlage 2a](https://gesetze.berlin.de/perma?d=jlr-TagEinrKostBetGBE2010V9Anlage2a) TKBG
+- Unterstützung für offene und gebundene Ganztagsschulen sowie Schulen und Klassen mit sonderpädagogischem Förderschwerpunkt Geistige Entwicklung oder Autismus
+- Kostentabellen nach [Anlage 2](https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000039) und [Anlage 2a](https://gesetze.berlin.de/bsbe/document/jlr-NNLBE00004DB9NN00000000040) TKBG
 - Übersicht der relevanten Gesetzesparagraphen
 
 ## Technik
@@ -23,7 +23,7 @@ npx serve .
 
 ## Hinweis
 
-Die Kostentabellen gelten ab 01.08.2022. Alle Angaben ohne Gewähr.
+Stand: TKBG in der ab 01.08.2026 geltenden Fassung (zuletzt geändert durch Gesetz vom 09.07.2026). Die Beträge der Kostentabellen gelten unverändert seit 01.08.2022. Alle Angaben ohne Gewähr.
 
 ## Lizenz
 
